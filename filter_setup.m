@@ -1,10 +1,10 @@
 %% System parameters
 
-fs = 200e3;
+fs = 1e6; %200e3
 
 R_HB = 2;           % Rate change undertaken by Halfband filter(s)
 R_CICcomp = 2;      % Rate change undertaken by CIC compensator
-R_CIC = 240;        % Rate change undertaken by CIC filter
+R_CIC = 48; %240    % Rate change undertaken by CIC filter
 
 
 % sampling rates at OUTPUTs of the filter sections
@@ -111,7 +111,7 @@ fvtool(cascade(HB, HB, CICcompsc, CICsc, HB_ssr))
 
 %% CIC decimator
 
-R_CIC_Rx = 120;
+R_CIC_Rx = 24; %120
 CIC_right_shift_Rx = log2(R_CIC_Rx^N_CIC);    
 
 CIC_Rx = dsp.CICDecimator(R_CIC_Rx, D_CIC, N_CIC, 'FixedPointDataType', 'Full precision');
