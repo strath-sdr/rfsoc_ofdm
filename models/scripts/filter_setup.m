@@ -1,10 +1,10 @@
 %% System parameters
 
-fs = 1e6; %200e3
+fs = 1e6; 
 
 R_HB = 2;           % Rate change undertaken by Halfband filter(s)
 R_CICcomp = 2;      % Rate change undertaken by CIC compensator
-R_CIC = 48; %240    % Rate change undertaken by CIC filter
+R_CIC = 48;         % Rate change undertaken by CIC filter
 
 
 % sampling rates at OUTPUTs of the filter sections
@@ -105,25 +105,36 @@ W_HB_ssr = coeffs(HB_ssr);
 fvtool(HB_ssr);
 
 
-%% Analysis
+%% Tx Analysis
 
 fvtool(cascade(HB, HB, CICcompsc, CICsc, HB_ssr))
 
 %% CIC decimator
 
-R_CIC_Rx = 24; %120
+R_CIC_Rx = 48;
 CIC_right_shift_Rx = log2(R_CIC_Rx^N_CIC);    
 
 CIC_Rx = dsp.CICDecimator(R_CIC_Rx, D_CIC, N_CIC, 'FixedPointDataType', 'Full precision');
+
+% Use a scaling factor to compensate for CIC gain - create an FIR with one
+% weight equal to the scaling factor
+K = 1/(R_CIC_Rx^N_CIC);                        % gain compensation value
+K_CIC = dsp.FIRFilter('Numerator', K);      % 1 weight filter (gain K)
+
+% Visualise as scaled filter response
+CICsc = cascade(K_CIC,CIC_Rx);                 % casade scaling and CIC
+fvtool(CICsc);
 
 CIC_shift_Rx = floor(CIC_right_shift_Rx);      
 CIC_fine_Rx = 2^(-(CIC_right_shift_Rx-CIC_shift_Rx)); 
 
 fCICcomp_Rx = 384e6 / (2*R_CIC_Rx);
 
-CICcomp_Rx = dsp.CICCompensationDecimator(CIC_Rx,'DecimationFactor',2, ...
+CICcomp_Rx = dsp.CICCompensationDecimator(R_CIC_Rx,'DecimationFactor',2, ...
     'PassbandFrequency',0.3*fCICcomp_Rx, 'StopbandFrequency',0.4*fCICcomp_Rx, ...
     'StopbandAttenuation',80, 'PassbandRipple',0.1, 'SampleRate',fCICcomp_Rx);
 
-WComp_Rx = coeffs(CICcomp);
+WComp_Rx = coeffs(CICcomp_Rx);
 
+CICcompsc = cascade(K_CICcomp,CICcomp_Rx);
+fvc = fvtool(CICcompsc);
