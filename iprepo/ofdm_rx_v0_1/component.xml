@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <spirit:vendor>xilinx.com</spirit:vendor>
-  <spirit:library>ip</spirit:library>
+  <spirit:vendor>UoS</spirit:vendor>
+  <spirit:library>RFSoC_OFDM</spirit:library>
   <spirit:name>ofdm_rx</spirit:name>
   <spirit:version>0.1</spirit:version>
   <spirit:busInterfaces>
@@ -173,7 +173,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>ASSOCIATED_RESET</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI4_LITE_SIGNAL_CLOCK.ASSOCIATED_RESET">AXI4_Lite_ARESETN</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI4_LITE_SIGNAL_CLOCK.ASSOCIATED_RESET">AXI4_Lite_ARESETN:AXI4_Lite_signal_reset</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -195,7 +195,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>POLARITY</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI4_LITE_SIGNAL_RESET.POLARITY">ACTIVE_LOW</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.AXI4_LITE_SIGNAL_RESET.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -239,9 +239,57 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>POLARITY</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.IPCORE_RESETN.POLARITY">ACTIVE_LOW</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.IPCORE_RESETN.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>m_axis_im</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_im_tdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_im_tvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>m_axis_re</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_re_tdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_re_tvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
     </spirit:busInterface>
   </spirit:busInterfaces>
   <spirit:memoryMaps>
@@ -310,6 +358,12 @@
         <spirit:fileSetRef>
           <spirit:localName>xilinx_productguide_view_fileset</spirit:localName>
         </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>f6a64d1c</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
       </spirit:view>
       <spirit:view>
         <spirit:name>xilinx_miscfiles</spirit:name>
@@ -318,6 +372,12 @@
         <spirit:fileSetRef>
           <spirit:localName>xilinx_miscfiles_view_fileset</spirit:localName>
         </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>7ee12505</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
       </spirit:view>
     </spirit:views>
     <spirit:ports>
@@ -745,6 +805,13 @@
       </spirit:port>
     </spirit:ports>
   </spirit:model>
+  <spirit:choices>
+    <spirit:choice>
+      <spirit:name>choice_list_9d8b0d81</spirit:name>
+      <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
+      <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
+    </spirit:choice>
+  </spirit:choices>
   <spirit:fileSets>
     <spirit:fileSet>
       <spirit:name>xilinx_anylanguagesynthesis_view_fileset</spirit:name>
@@ -1311,697 +1378,558 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_reset_sync.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_addr_decoder.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_axi_lite_module.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_axi_lite.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_OFDMRx_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_AutoCorr.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CIC_ma_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Quadrant_Mapper_block1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CordicKernelMag_block1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Quadrant_Correction_block1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Complex_to_Magnitude_Angle_HDL_Optimized_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_MagPhase.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Sq.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Abs2_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CIC_ma1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Sq1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_ThreshMult.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SchmidlCoxMetric.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RsingEdge_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_FrameDetect.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RsingEdge.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_DitherGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_LookUpTableGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_WaveformGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_NCO_HDL_Optimized.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CoarseFreqCorr.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Delay.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RisingEdge.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PreambleValidGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_dataValidGen_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_ControlSigGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Synchronisation.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_CTRL1_1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SimpleDualPortRAM_generic.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SDFCommutator1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_SDF1_1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_CTRL1_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SDFCommutator2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_SDF2_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_TWDLROM_3_1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_CTRL1_3.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Complex4Multiply.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SDFCommutator3.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_SDF1_3.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_CTRL1_4.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SDFCommutator4.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_SDF2_4.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_TWDLROM_5_1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_CTRL1_5.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Complex4Multiply_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SDFCommutator5.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_SDF1_5.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_CTRL1_6.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SDFCommutator6.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX22FFT_SDF2_6.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_RADIX2FFT_bitNatural.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_FFT_HDL_Optimized.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_FFT.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_ChanEst.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_WriteEnbAddrGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_DualPortRAM_generic.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_ChannelEstimate.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Complex_Mult.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Abs2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_NewtonPolynomialIVStage.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Reciprocal_iv.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Reciprocal_core.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Reciprocal.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Divide.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Equalise.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_ChannelEstEq.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_READ_CTRL.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_dataValidGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_DataArrange.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SymbolCounter.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SampleCounter.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_ToComplex1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_pilotGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CtrlSigGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PilotCtrlGen.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PilotEq.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Quadrant_Mapper.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CordicKernelMag.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Quadrant_Correction.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Complex_to_Magnitude_Angle_HDL_Optimized.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Gradient.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_MoveAvg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_GradientEstimate.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PhaseErrorEst.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QUAD_DETERM1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QUAD_MAP.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell3.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell4.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell5.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell6.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell7.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell8.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell9.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QUAD_MAP1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QCORR.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_GAIN_CORR.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_GAIN_CORR1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CordicRotate.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PhaseTracking_1.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SymbolCounter_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_SampleCounter_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_ToComplex1_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_pilotGen_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CtrlSigGen_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PilotCtrlGen_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CIC_MA.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Quadrant_Mapper_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CordicKernelMag_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Quadrant_Correction_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PhaseEst.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QUAD_DETERM1_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QUAD_MAP_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell0_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell1_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell2_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell3_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell4_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell5_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell6_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell7_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell8_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_Cell9_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QUAD_MAP1_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_QCORR_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_GAIN_CORR_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_GAIN_CORR1_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_CordicRotate_block.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_PhaseTracking_2.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_src_OFDMRx.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx_dut.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -2060,16 +1988,56 @@
       </xilinx:taxonomies>
       <xilinx:displayName>ofdm_rx</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>2101081241</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-01-08T12:42:19Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2101081244</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-01-08T15:04:14Z</xilinx:coreCreationDateTime>
+      <xilinx:tags>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@699ddbd_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10502b00_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e4e5215_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@62258c_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36e60fde_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fd49b35_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37100c62_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d1aec23_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c65f252_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b02ad86_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1013386f_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25523010_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5fb0d53e_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5af2bdc8_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49e99acb_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@dbaec2e_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@568261d4_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1061e2b8_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5816edcd_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27b23b92_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d77e546_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5737f97e_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d9a35b8_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@54db1826_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@676d3942_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61df8a4e_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46ee623e_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26e350e0_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@41b4c3ca_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3cbccd18_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f418cc1_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@18f506ea_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3296d810_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a1fb736_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@197fd562_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a5bd26d_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ca576c3_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27cfb33b_ARCHIVE_LOCATION">c:/Git/rfsoc_ofdm_workspace/models/hdl_prj/OFDM_rx/ipcore/ofdm_rx_v0_1</xilinx:tag>
+      </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="3c0b3846"/>
-      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="fa7bbd03"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="2612049f"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="c75cceb8"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="4512d4da"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="be833cd3"/>
+      <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="15176b57"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="2322fde5"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="154eb4cb"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="a1970a6d"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>
