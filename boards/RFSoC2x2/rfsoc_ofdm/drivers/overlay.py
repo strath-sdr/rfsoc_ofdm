@@ -248,6 +248,4 @@ class Overlay(Overlay):
             plot.layout.autosize = False
             plot.layout.autosize = True
 
-        tabs.observe(callback, names='selected_index')        
-        
-Overlay = OfdmOverlay
+        tabs.observe(callback, names='selected_index')

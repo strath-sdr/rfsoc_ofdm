@@ -13,9 +13,9 @@ class OFDMRx(DefaultHierarchy):
         
     @staticmethod
     def checkhierarchy(description):
-        if     'dma_rx'    in description['ip'] \
+        if     'dma_rx_1M'    in description['ip'] \
            and 'ofdm_rx'   in description['ip'] \
-           and 'data_inspector_0' in description['ip']:
+           and 'data_inspector_rx_1M' in description['ip']:
             return True
         return False
 
