@@ -7,9 +7,11 @@ import numpy as np
 class OFDMRx(DefaultHierarchy):
     def __init__(self, description):
         super().__init__(description)
+
+    bindto = ['xilinx.com:ip:ofdm_rx:0.3']
     
     def get_demod(self):
-        return self.data_inspector_0.get_frame(self.dma_rx)
+        return self.data_inspector_rx_1M.get_frame(self.dma_rx_1M)
         
     @staticmethod
     def checkhierarchy(description):
