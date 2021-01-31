@@ -26,8 +26,8 @@ import ipywidgets as ipw
 
 from .ofdm_rx import *
 from .ofdm_tx import *
-from .sdr_plots import *
-from .dma_timer import *
+from .sdr_plots import HWFreqPlot, IQFreqPlot, IQTimePlot, IQConstellationPlot
+from .dma_timer import DmaTimer
 
 
 class TimerRegistry():
@@ -151,32 +151,32 @@ class Overlay(Overlay):
                 
                 # HW accelerated FFT
                 if get_freq_data != None:
-                    f_plot = sdr_plots.HWFreqPlot(
+                    f_plot = HWFreqPlot(
                                 [get_freq_data() for _ in range(4)],
                                 fs, animation_period=100, w=700)
-                    f_dt = dma_timer.DmaTimer(f_plot.add_frame, get_freq_data, 0.3)
+                    f_dt = DmaTimer(f_plot.add_frame, get_freq_data, 0.3)
                 # SW FFT
                 else:
-                    f_plot = sdr_plots.IQFreqPlot(
+                    f_plot = IQFreqPlot(
                                 [many(get_time_data) for _ in range(4)],
                                 fs, x_range=(-2000,2000), animation_period=100, w=700)
-                    f_dt = dma_timer.DmaTimer(f_plot.add_frame, lambda:many(get_time_data), 0.3)
+                    f_dt = DmaTimer(f_plot.add_frame, lambda:many(get_time_data), 0.3)
                 plots.append(dict(title='Frequency domain', plot=f_plot, control=f_dt))
             
             elif domain=='time' or domain=='time-binary':
                 if domain=='time-binary':
-                    iq_plot = sdr_plots.IQTimePlot(many(get_time_data), fs, w=700, scaling=1, ylabel='Symbol value')
+                    iq_plot = IQTimePlot(many(get_time_data), fs, w=700, scaling=1, ylabel='Symbol value')
                     iq_plot.set_line_mode(lines=True, markers=True, shape='hvh')
                     iq_plot.get_widget().layout.yaxis.dtick=1
                 else:
-                    iq_plot = sdr_plots.IQTimePlot(many(get_time_data), fs, w=700)
+                    iq_plot = IQTimePlot(many(get_time_data), fs, w=700)
                     iq_plot.set_line_mode(markers=False)
-                iq_dt = dma_timer.DmaTimer(iq_plot.add_data, get_time_data, 0.05)
+                iq_dt = DmaTimer(iq_plot.add_data, get_time_data, 0.05)
                 plots.append(dict(title='Time domain', plot=iq_plot, control=iq_dt))
             
             elif domain=='constellation':
-                c_plot = sdr_plots.IQConstellationPlot(many(get_const_data or get_time_data, n=10), h=550, fade=True)
-                c_dt = dma_timer.DmaTimer(c_plot.add_data, get_const_data or get_time_data, 0.05)
+                c_plot = IQConstellationPlot(many(get_const_data or get_time_data, n=10), h=550, fade=True)
+                c_dt = DmaTimer(c_plot.add_data, get_const_data or get_time_data, 0.05)
                 plots.append(dict(title='Constellation', plot=c_plot, control=c_dt,
                                   layout=ipw.Layout(width='550px', margin='auto')))
                 
