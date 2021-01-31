@@ -50,7 +50,7 @@ class TimerRegistry():
         self.registry[key] = timers
 
 
-class OfdmOverlay(Overlay):
+class Overlay(Overlay):
     def __init__(self, bitfile_name=None, init_rf_clks=True, **kwargs):
         
         if bitfile_name is None:

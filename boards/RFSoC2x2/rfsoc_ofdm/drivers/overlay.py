@@ -5,7 +5,7 @@ __date__ = '31st January 2021'
 __version_name__ = ''
 __version_number__ = '0.1'
 __channels__ = 'Single-Channel'
-__board__ = 'ZCU111'
+__board__ = 'RFSoC2x2'
 __release__ = 'development'
 __info__ = 'PYNQ on RFSoC: OFDM Transmit and Receive'
 __support__ = '<a href="https://github.com/strath-sdr/rfsoc_ofdm" target="_blank" rel="noopener noreferrer">https://github.com/strath-sdr/rfsoc_ofdm</a>'
@@ -50,7 +50,7 @@ class TimerRegistry():
         self.registry[key] = timers
 
 
-class OfdmOverlay(Overlay):
+class Overlay(Overlay):
     def __init__(self, bitfile_name=None, init_rf_clks=True, **kwargs):
         
         if bitfile_name is None:
@@ -59,14 +59,15 @@ class OfdmOverlay(Overlay):
         
         super().__init__(bitfile_name, **kwargs)
         
-        # Start up LMX clock
+        self.init_i2c()
+
         if init_rf_clks:
-            xrfclk.set_all_ref_clks(384)
+            self.init_rf_clks(lmx_freq=384)
         
         # Extact in-use dataconverter objects with friendly names
         self.rf = self.usp_rf_data_converter_0
-        self.dac_tile = self.rf.dac_tiles[1]
-        self.dac_block = self.dac_tile.blocks[2]
+        self.dac_tile = self.rf.dac_tiles[0]
+        self.dac_block = self.dac_tile.blocks[0]
 
         self.adc_tile = self.rf.adc_tiles[0]
         self.adc_block = self.adc_tile.blocks[0]
@@ -103,7 +104,34 @@ class OfdmOverlay(Overlay):
         
         self.ofdm_rx
         self.ofdm_tx
-        
+            
+
+    def init_i2c(self):
+        """Initialize the I2C control drivers on RFSoC2x2.
+        This should happen after a bitstream is loaded since I2C reset
+        is connected to PL pins. The I2C-related drivers are made loadable
+        modules so they can be removed or inserted.
+        """
+        module_list = ['i2c_dev', 'i2c_mux_pca954x', 'i2c_mux']
+        for module in module_list:
+            cmd = "if lsmod | grep {0}; then rmmod {0}; fi".format(module)
+            ret = os.system(cmd)
+            if ret:
+                raise RuntimeError(
+                    'Removing kernel module {} failed.'.format(module))
+
+        module_list.reverse()
+        for module in module_list:
+            cmd = "modprobe {}".format(module)
+            ret = os.system(cmd)
+            if ret:
+                raise RuntimeError(
+                    'Inserting kernel module {} failed.'.format(module))
+
+    def init_rf_clks(self, lmk_freq=122.88, lmx_freq=409.6):
+        """Initialise the LMX and LMK clocks for RF-DC operation.
+        """
+        xrfclk.set_ref_clks(lmk_freq=lmk_freq, lmx_freq=lmx_freq)
         
     def on_modulation_change(self, change):
         self.ofdm_tx.set_modulation(change['new'])
