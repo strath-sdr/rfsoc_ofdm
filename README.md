@@ -17,14 +17,34 @@ Open a terminal in Jupyter Lab and run the following command:
 pip3 install git+https://github.com/strath-sdr/rfsoc_ofdm
 ```
 
-The notebook should now be available in the `rfstrath` folder in your Jupyter Workspace.
+The notebook should now be available in the `rfsoc_ofdm` folder in your Jupyter Workspace.
 It is important that you use the Chrome web browser if possible as rendering performance is important.
 
+Follow the remaining steps below for your development board to finish setting up the demonstration.
+
 ## ZCU111 Setup
-Describe the setup for the ZCU111.
+We need to add a 384 MHz clock to the xrfclk package. We can simply overwrite __init__.py, with the changes.
+```sh
+mkdir /home/xilinx/GitHub
+cd /home/xilinx/GitHub/
+git clone https://github.com/dnorthcote/ZCU111-PYNQ
+cd /home/xilinx/GitHub/ZCU111-PYNQ
+git fetch origin 11d495462b7ea8de656c63e4a1f1de0458a2997b
+git reset --hard FETCH_HEAD
+cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfclk/pkg/xrfclk/__init__.py /usr/local/lib/python3.6/dist-packages/xrfclk/__init__.py
+```
 
 ## RFSoC2x2 Setup
-Describe the setup for the RFSoC2x2.
+We need to add a 384 MHz clock to the xrfclk package. We can simply add a new text file with the required clock configuration.
+```sh
+mkdir /home/xilinx/GitHub
+cd /home/xilinx/GitHub/
+git clone https://github.com/dnorthcote/ZCU111-PYNQ
+cd /home/xilinx/GitHub/ZCU111-PYNQ
+git fetch origin 11d495462b7ea8de656c63e4a1f1de0458a2997b
+git reset --hard FETCH_HEAD
+cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfclk/pkg/xrfclk/LMX2594_384.txt /usr/local/lib/python3.6/dist-packages/xrfclk/LMX2594_384.txt
+```
 
 ## Using the Project Files
 The following software is required to use the project files in this repository.
@@ -35,10 +55,10 @@ The following software is required to use the project files in this repository.
 ### Vivado
 This project can be built with Vivado from the command line. Open Vivado 2020.1 and execute the following into the tcl console:
 ```sh
-cd /<repository-location>/StrathSDR-RFSoC-Template/boards/<board-name>/
+cd /<repository-location>/boards/<board-name>/rfsoc_ofdm/
 make project
 make block_design
-make bitstream
+make bitstream_file
 ```
 
 Alternatively, you can run the entire project build by executing the following into the tcl console:

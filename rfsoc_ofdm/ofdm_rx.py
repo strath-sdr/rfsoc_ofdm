@@ -9,13 +9,13 @@ class OFDMRx(DefaultHierarchy):
         super().__init__(description)
     
     def get_demod(self):
-        return self.data_inspector_0.get_frame(self.dma_rx)
+        return self.data_inspector_rx_1M.get_frame(self.dma_rx_1M)
         
     @staticmethod
     def checkhierarchy(description):
-        if     'dma_rx'    in description['ip'] \
+        if     'dma_rx_1M'    in description['ip'] \
            and 'ofdm_rx'   in description['ip'] \
-           and 'data_inspector_0' in description['ip']:
+           and 'data_inspector_rx_1M' in description['ip']:
             return True
         return False
 
