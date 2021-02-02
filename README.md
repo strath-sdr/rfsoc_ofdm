@@ -17,7 +17,7 @@ Open a terminal in Jupyter Lab and run the following command:
 pip3 install git+https://github.com/strath-sdr/rfsoc_ofdm
 ```
 
-The notebook should now be available in the `rfsoc_ofdm` folder in your Jupyter Workspace.
+The notebook should now be available in the `strath-sdr/standalone/rfsoc-ofdm` folder in your Jupyter Workspace.
 It is important that you use the Chrome web browser if possible as rendering performance is important.
 
 Follow the remaining steps below for your development board to finish setting up the demonstration.
