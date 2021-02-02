@@ -29,7 +29,6 @@ from .ofdm_tx import *
 from .sdr_plots import HWFreqPlot, IQFreqPlot, IQTimePlot, IQConstellationPlot
 from .dma_timer import DmaTimer
 
-
 class TimerRegistry():
     """Helper class to track active timer threads.
     This can be used to help safely stop any orphaned DMA timers.
@@ -66,18 +65,18 @@ class OfdmOverlay(Overlay):
         # Extact in-use dataconverter objects with friendly names
         self.rf = self.usp_rf_data_converter_0
         self.dac_tile = self.rf.dac_tiles[1]
-        self.dac_block = self.dac_tile.blocks[2]
+        self.dac_block = self.dac_tile.blocks[1]
 
-        self.adc_tile = self.rf.adc_tiles[0]
+        self.adc_tile = self.rf.adc_tiles[1]
         self.adc_block = self.adc_tile.blocks[0]
               
         self.dac_tile.DynamicPLLConfig(1, 384, 3072)
-        self.dac_block.NyquistZone = 1
+        self.dac_block.NyquistZone = 2
         self.dac_block.MixerSettings = {
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
-            'FineMixerScale': xrfdc.MIXER_SCALE_0P7,
-            'Freq':           2,
+            'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
+            'Freq':           2450,
             'MixerMode':      xrfdc.MIXER_MODE_C2R,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -86,12 +85,12 @@ class OfdmOverlay(Overlay):
         self.dac_tile.SetupFIFO(True)
         
         self.adc_tile.DynamicPLLConfig(1, 384, 3072)
-        self.adc_block.NyquistZone = 1
+        self.adc_block.NyquistZone = 2
         self.adc_block.MixerSettings = {
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_TILE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           2,
+            'Freq':           -2450,
             'MixerMode':      xrfdc.MIXER_MODE_R2C,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -104,26 +103,77 @@ class OfdmOverlay(Overlay):
         self.ofdm_rx
         self.ofdm_tx
         
+    def resync(self):
+        self.ofdm_tx.ofdm_tx.enable = 0
+        self.ofdm_rx.ofdm_rx.enable = 0
+
+        self.ofdm_rx.ofdm_rx.reset = 1
+        self.ofdm_tx.ofdm_tx.reset = 1
+        self.ofdm_rx.ofdm_rx.reset = 0
+        self.ofdm_tx.ofdm_tx.reset = 0
+        
+        self.ofdm_tx.ofdm_tx.mod = self.ofdm_tx.mod
+
+        self.ofdm_rx.ofdm_rx.enable = 1
+        self.ofdm_tx.ofdm_tx.enable = 1
+        
+    def on_tx_carrier_change(self, change):
+        self.dac_block.MixerSettings['Freq'] = change['new']
+        self.adc_block.UpdateEvent(xrfdc.EVENT_MIXER)
+        self.adc_tile.SetupFIFO(True)
+        
+    def on_rx_carrier_change(self, change):
+        self.adc_block.MixerSettings['Freq'] = -1*change['new']
+        self.adc_block.UpdateEvent(xrfdc.EVENT_MIXER)
+        self.adc_tile.SetupFIFO(True)
+        
+    def carrier_frequency(self):
+        self.tx_carrier_ipw = ipw.FloatText(
+            value=2450,
+            description='Tx Carrier (MHz):',
+            disabled=False,
+            style={'description_width': 'initial'}
+        )
+        self.rx_carrier_ipw = ipw.FloatText(
+            value=2450,
+            description='Rx Carrier (MHz):',
+            disabled=False,
+            style={'description_width': 'initial'}
+        )
+        self.tx_carrier_ipw.observe(self.on_tx_carrier_change, names='value')
+        self.rx_carrier_ipw.observe(self.on_rx_carrier_change, names='value')
+        
+        return ipw.HBox([self.tx_carrier_ipw, self.rx_carrier_ipw])
         
     def on_modulation_change(self, change):
         self.ofdm_tx.set_modulation(change['new'])
         
     def modulation_type(self):
-        options= ['BPSK', 'QPSK', '8-PSK', '16-QAM', '32-QAM', '64-QAM', '128-QAM', '256-QAM']
+        options= ['BPSK', 
+                  'QPSK', 
+                  '8-PSK', 
+                  '16-QAM', 
+                  '32-QAM', 
+                  '64-QAM', 
+                  '128-QAM', 
+                  '256-QAM', 
+                  '512-QAM',
+                  '1024-QAM']
         
         self.mod_type_ipw = ipw.Dropdown(
             options=options,
-            value='BPSK',
-            description='Select Modulation Scheme',
+            value='64-QAM',
+            description='Select Modulation Scheme: ',
             disabled=False,
             layout=ipw.Layout(width='auto'),
+            style={'description_width': 'initial'},
         )
         
         self.mod_type_ipw.observe(self.on_modulation_change, names='value')
         
         return self.mod_type_ipw
         
-    def plot_group(self, group_name, domains, get_time_data, fs, get_freq_data=None, get_const_data=None):
+    def plot_group(self, group_name, domains, get_time_data, fs=None, get_freq_data=None, get_const_data=None, y_range=None):
         """Create a group of plots for a given set of data generators.
             
         group_name: String name for plot group (used to register timers with
@@ -165,7 +215,7 @@ class OfdmOverlay(Overlay):
             
             elif domain=='time' or domain=='time-binary':
                 if domain=='time-binary':
-                    iq_plot = IQTimePlot(many(get_time_data), fs, w=700, scaling=1, ylabel='Symbol value')
+                    iq_plot = IQTimePlot(many(get_time_data, n=10), fs, w=700, scaling=1, y_range=y_range)
                     iq_plot.set_line_mode(lines=True, markers=True, shape='hvh')
                     iq_plot.get_widget().layout.yaxis.dtick=1
                 else:
@@ -175,8 +225,8 @@ class OfdmOverlay(Overlay):
                 plots.append(dict(title='Time domain', plot=iq_plot, control=iq_dt))
             
             elif domain=='constellation':
-                c_plot = IQConstellationPlot(many(get_const_data or get_time_data, n=10), h=550, fade=True)
-                c_dt = DmaTimer(c_plot.add_data, get_const_data or get_time_data, 0.05)
+                c_plot = IQConstellationPlot(many(get_const_data or get_time_data, n=1), h=550, fade=True)
+                c_dt = DmaTimer(c_plot.add_data, get_const_data or get_time_data, 0.2)
                 plots.append(dict(title='Constellation', plot=c_plot, control=c_dt,
                                   layout=ipw.Layout(width='550px', margin='auto')))
                 
@@ -220,4 +270,4 @@ class OfdmOverlay(Overlay):
             plot.layout.autosize = False
             plot.layout.autosize = True
 
-        tabs.observe(callback, names='selected_index')        
+        tabs.observe(callback, names='selected_index')

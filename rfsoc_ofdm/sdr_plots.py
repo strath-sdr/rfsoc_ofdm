@@ -84,7 +84,7 @@ class IQPlot():
                  h=500,
                  debug=False,
                  legend=None,
-                 scaling=(250/32768),
+                 scaling=1,
                  x_start=0,
                  autosize=True,
                  x_range=None,
@@ -479,7 +479,7 @@ class IQConstellationPlot():
                  w=700,
                  h=700,
                  autosize = True,
-                 scaling=(250/32768),
+                 scaling=1,
                  debug=False):
         """Create new plot.
 
