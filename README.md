@@ -29,8 +29,6 @@ mkdir /home/xilinx/GitHub
 cd /home/xilinx/GitHub/
 git clone https://github.com/dnorthcote/ZCU111-PYNQ
 cd /home/xilinx/GitHub/ZCU111-PYNQ
-git fetch origin 11d495462b7ea8de656c63e4a1f1de0458a2997b
-git reset --hard FETCH_HEAD
 cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfclk/pkg/xrfclk/__init__.py /usr/local/lib/python3.6/dist-packages/xrfclk/__init__.py
 ```
 
@@ -41,8 +39,6 @@ mkdir /home/xilinx/GitHub
 cd /home/xilinx/GitHub/
 git clone https://github.com/dnorthcote/ZCU111-PYNQ
 cd /home/xilinx/GitHub/ZCU111-PYNQ
-git fetch origin 11d495462b7ea8de656c63e4a1f1de0458a2997b
-git reset --hard FETCH_HEAD
 cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfclk/pkg/xrfclk/LMX2594_384.txt /usr/local/lib/python3.6/dist-packages/xrfclk/LMX2594_384.txt
 ```
 
