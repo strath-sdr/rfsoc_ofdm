@@ -69,7 +69,7 @@ class OfdmOverlay(Overlay):
         self.dac_tile = self.rf.dac_tiles[1]
         self.dac_block = self.dac_tile.blocks[0]
 
-        self.adc_tile = self.rf.adc_tiles[0]
+        self.adc_tile = self.rf.adc_tiles[2]
         self.adc_block = self.adc_tile.blocks[0]
               
         self.dac_tile.DynamicPLLConfig(1, 384, 3072)
