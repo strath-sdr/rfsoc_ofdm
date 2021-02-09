@@ -1,6 +1,6 @@
 
 ################################################################
-# This is a generated script based on design: design_1
+# This is a generated script based on design: block_design
 #
 # Though there are limitations about the generated script,
 # the main purpose of this utility is to make learning
@@ -35,7 +35,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 ################################################################
 
 # To test this script, run the following commands from Vivado Tcl console:
-# source design_1_script.tcl
+# source block_design_script.tcl
 
 # If there is no project opened, this script will create a
 # project, but make sure you do not have an existing project
@@ -44,13 +44,12 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project project_1 myproj -part xczu28dr-ffvg1517-2-e
-   set_property BOARD_PART xilinx.com:zcu111:part0:1.2 [current_project]
 }
 
 
 # CHANGE DESIGN NAME HERE
 variable design_name
-set design_name "block_design"
+set design_name block_design
 
 # If you do not already have an existing IP Integrator design open,
 # you can create a design using the following command:
@@ -333,14 +332,14 @@ proc create_hier_cell_probes { parentCell nameHier } {
 
   # Create port connections
   connect_bd_net -net ARESETN_1 [get_bd_pins ARESETN] [get_bd_pins axi_interconnect_0/ARESETN]
-  connect_bd_net -net clk_in1_1 [get_bd_pins clk_dac_192M] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S02_ACLK] [get_bd_pins axi_interconnect_0/S03_ACLK] [get_bd_pins data_inspector_tx_2M/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_2M/IPCORE_CLK] [get_bd_pins dma_tx_2M/m_axi_s2mm_aclk] [get_bd_pins dma_tx_2M/s_axi_lite_aclk] [get_bd_pins dma_tx_4M/m_axi_s2mm_aclk]
-  connect_bd_net -net clk_wiz_rx_clk_out1 [get_bd_pins clk_12M] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_0/S01_ACLK] [get_bd_pins data_inspector_tx_1M/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_1M/IPCORE_CLK] [get_bd_pins data_inspector_tx_4M/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_4M/IPCORE_CLK] [get_bd_pins data_inspector_tx_sym/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_sym/IPCORE_CLK] [get_bd_pins dma_tx_1M/m_axi_s2mm_aclk] [get_bd_pins dma_tx_1M/s_axi_lite_aclk] [get_bd_pins dma_tx_4M/s_axi_lite_aclk] [get_bd_pins dma_tx_sym/m_axi_s2mm_aclk] [get_bd_pins dma_tx_sym/s_axi_lite_aclk]
+  connect_bd_net -net clk_in1_1 [get_bd_pins clk_dac_192M] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S02_ACLK] [get_bd_pins axi_interconnect_0/S03_ACLK] [get_bd_pins data_inspector_tx_2M/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_2M/IPCORE_CLK] [get_bd_pins data_inspector_tx_4M/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_4M/IPCORE_CLK] [get_bd_pins dma_tx_2M/m_axi_s2mm_aclk] [get_bd_pins dma_tx_2M/s_axi_lite_aclk] [get_bd_pins dma_tx_4M/m_axi_s2mm_aclk]
+  connect_bd_net -net clk_wiz_rx_clk_out1 [get_bd_pins clk_12M] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_0/S01_ACLK] [get_bd_pins data_inspector_tx_1M/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_1M/IPCORE_CLK] [get_bd_pins data_inspector_tx_sym/AXI4_Lite_ACLK] [get_bd_pins data_inspector_tx_sym/IPCORE_CLK] [get_bd_pins dma_tx_1M/m_axi_s2mm_aclk] [get_bd_pins dma_tx_1M/s_axi_lite_aclk] [get_bd_pins dma_tx_4M/s_axi_lite_aclk] [get_bd_pins dma_tx_sym/m_axi_s2mm_aclk] [get_bd_pins dma_tx_sym/s_axi_lite_aclk]
   connect_bd_net -net dma_tx_1M_s2mm_introut [get_bd_pins dma_tx_1M/s2mm_introut] [get_bd_pins intr_concat_tx/In1]
   connect_bd_net -net dma_tx_2M_s2mm_introut [get_bd_pins dma_tx_2M/s2mm_introut] [get_bd_pins intr_concat_tx/In0]
   connect_bd_net -net dma_tx_4M_s2mm_introut [get_bd_pins dma_tx_4M/s2mm_introut] [get_bd_pins intr_concat_tx/In2]
   connect_bd_net -net dma_tx_sym_s2mm_introut [get_bd_pins dma_tx_sym/s2mm_introut] [get_bd_pins intr_concat_tx/In3]
-  connect_bd_net -net proc_sys_reset_12_peripheral_aresetn [get_bd_pins aresetn_12M] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_0/S01_ARESETN] [get_bd_pins data_inspector_tx_1M/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_1M/IPCORE_RESETN] [get_bd_pins data_inspector_tx_4M/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_4M/IPCORE_RESETN] [get_bd_pins data_inspector_tx_sym/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_sym/IPCORE_RESETN] [get_bd_pins dma_tx_1M/axi_resetn] [get_bd_pins dma_tx_4M/axi_resetn] [get_bd_pins dma_tx_sym/axi_resetn]
-  connect_bd_net -net reset_192M_peripheral_aresetn [get_bd_pins aresetn_192M] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S02_ARESETN] [get_bd_pins axi_interconnect_0/S03_ARESETN] [get_bd_pins data_inspector_tx_2M/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_2M/IPCORE_RESETN] [get_bd_pins dma_tx_2M/axi_resetn]
+  connect_bd_net -net proc_sys_reset_12_peripheral_aresetn [get_bd_pins aresetn_12M] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_0/S01_ARESETN] [get_bd_pins data_inspector_tx_1M/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_1M/IPCORE_RESETN] [get_bd_pins data_inspector_tx_sym/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_sym/IPCORE_RESETN] [get_bd_pins dma_tx_1M/axi_resetn] [get_bd_pins dma_tx_4M/axi_resetn] [get_bd_pins dma_tx_sym/axi_resetn]
+  connect_bd_net -net reset_192M_peripheral_aresetn [get_bd_pins aresetn_192M] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S02_ARESETN] [get_bd_pins axi_interconnect_0/S03_ARESETN] [get_bd_pins data_inspector_tx_2M/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_2M/IPCORE_RESETN] [get_bd_pins data_inspector_tx_4M/AXI4_Lite_ARESETN] [get_bd_pins data_inspector_tx_4M/IPCORE_RESETN] [get_bd_pins dma_tx_2M/axi_resetn]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins intr] [get_bd_pins intr_concat_tx/dout]
 
   # Restore current instance
@@ -479,13 +478,13 @@ proc create_hier_cell_ofdm_tx { parentCell nameHier } {
   connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins M_AXI_S2MM] [get_bd_intf_pins probes/smart_connect_m00]
 
   # Create port connections
-  connect_bd_net -net clk_in1_1 [get_bd_pins clk_dac_192M] [get_bd_pins axi_interconnect_hpm0_fpd/ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M03_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M04_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/S00_ACLK] [get_bd_pins clk_tx/clk_in1] [get_bd_pins clock_convert_tx/m_axis_aclk] [get_bd_pins interpolate_tx/clk] [get_bd_pins probes/clk_dac_192M] [get_bd_pins reset_192M/slowest_sync_clk]
+  connect_bd_net -net clk_in1_1 [get_bd_pins clk_dac_192M] [get_bd_pins axi_interconnect_hpm0_fpd/ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M03_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M04_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M06_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/S00_ACLK] [get_bd_pins clk_tx/clk_in1] [get_bd_pins clock_convert_tx/m_axis_aclk] [get_bd_pins interpolate_tx/clk] [get_bd_pins probes/clk_dac_192M] [get_bd_pins reset_192M/slowest_sync_clk]
   connect_bd_net -net clk_tx_locked [get_bd_pins clk_tx/locked] [get_bd_pins reset_12M/dcm_locked]
-  connect_bd_net -net clk_wiz_rx_clk_out1 [get_bd_pins axi_interconnect_hpm0_fpd/M00_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M01_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M02_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M05_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M06_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M07_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M08_ACLK] [get_bd_pins clk_tx/clk_12M] [get_bd_pins clock_convert_tx/s_axis_aclk] [get_bd_pins ofdm_tx/AXI4_Lite_ACLK] [get_bd_pins ofdm_tx/IPCORE_CLK] [get_bd_pins probes/clk_12M] [get_bd_pins reset_12M/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_rx_clk_out1 [get_bd_pins axi_interconnect_hpm0_fpd/M00_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M01_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M02_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M05_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M07_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M08_ACLK] [get_bd_pins clk_tx/clk_12M] [get_bd_pins clock_convert_tx/s_axis_aclk] [get_bd_pins ofdm_tx/AXI4_Lite_ACLK] [get_bd_pins ofdm_tx/IPCORE_CLK] [get_bd_pins probes/clk_12M] [get_bd_pins reset_12M/slowest_sync_clk]
   connect_bd_net -net ext_reset_in_1 [get_bd_pins ext_reset_in] [get_bd_pins clk_tx/resetn] [get_bd_pins reset_12M/ext_reset_in] [get_bd_pins reset_192M/ext_reset_in]
-  connect_bd_net -net proc_sys_reset_12_peripheral_aresetn [get_bd_pins axi_interconnect_hpm0_fpd/M00_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M01_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M02_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M05_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M06_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M07_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M08_ARESETN] [get_bd_pins clock_convert_tx/s_axis_aresetn] [get_bd_pins ofdm_tx/AXI4_Lite_ARESETN] [get_bd_pins ofdm_tx/IPCORE_RESETN] [get_bd_pins probes/aresetn_12M] [get_bd_pins reset_12M/peripheral_aresetn]
+  connect_bd_net -net proc_sys_reset_12_peripheral_aresetn [get_bd_pins axi_interconnect_hpm0_fpd/M00_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M01_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M02_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M05_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M07_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M08_ARESETN] [get_bd_pins clock_convert_tx/s_axis_aresetn] [get_bd_pins ofdm_tx/AXI4_Lite_ARESETN] [get_bd_pins ofdm_tx/IPCORE_RESETN] [get_bd_pins probes/aresetn_12M] [get_bd_pins reset_12M/peripheral_aresetn]
   connect_bd_net -net reset_192M_interconnect_aresetn [get_bd_pins axi_interconnect_hpm0_fpd/ARESETN] [get_bd_pins probes/ARESETN] [get_bd_pins reset_192M/interconnect_aresetn]
-  connect_bd_net -net reset_192M_peripheral_aresetn [get_bd_pins peripheral_aresetn1] [get_bd_pins axi_interconnect_hpm0_fpd/M03_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M04_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/S00_ARESETN] [get_bd_pins probes/aresetn_192M] [get_bd_pins reset_192M/peripheral_aresetn]
+  connect_bd_net -net reset_192M_peripheral_aresetn [get_bd_pins peripheral_aresetn1] [get_bd_pins axi_interconnect_hpm0_fpd/M03_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M04_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/M06_ARESETN] [get_bd_pins axi_interconnect_hpm0_fpd/S00_ARESETN] [get_bd_pins probes/aresetn_192M] [get_bd_pins reset_192M/peripheral_aresetn]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins dout] [get_bd_pins probes/intr]
 
   # Restore current instance
@@ -716,28 +715,28 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.ADC0_Enable {0} \
    CONFIG.ADC0_Fabric_Freq {0.0} \
-   CONFIG.ADC0_Outclk_Freq {192.000} \
+   CONFIG.ADC0_Outclk_Freq {15.625} \
    CONFIG.ADC0_PLL_Enable {false} \
-   CONFIG.ADC0_Refclk_Freq {3072.000} \
-   CONFIG.ADC0_Sampling_Rate {3.072} \
+   CONFIG.ADC0_Refclk_Freq {2000.000} \
+   CONFIG.ADC0_Sampling_Rate {2.0} \
    CONFIG.ADC1_Enable {1} \
    CONFIG.ADC1_Fabric_Freq {192.000} \
    CONFIG.ADC1_Outclk_Freq {192.000} \
    CONFIG.ADC1_PLL_Enable {true} \
    CONFIG.ADC1_Refclk_Freq {384.000} \
    CONFIG.ADC1_Sampling_Rate {3.072} \
-   CONFIG.ADC_Data_Type00 {1} \
+   CONFIG.ADC_Data_Type00 {0} \
    CONFIG.ADC_Data_Type10 {1} \
    CONFIG.ADC_Data_Type11 {1} \
-   CONFIG.ADC_Data_Width00 {6} \
-   CONFIG.ADC_Data_Width01 {6} \
+   CONFIG.ADC_Data_Width00 {8} \
+   CONFIG.ADC_Data_Width01 {8} \
    CONFIG.ADC_Data_Width10 {2} \
    CONFIG.ADC_Data_Width11 {2} \
    CONFIG.ADC_Decimation_Mode00 {0} \
    CONFIG.ADC_Decimation_Mode01 {0} \
    CONFIG.ADC_Decimation_Mode10 {8} \
    CONFIG.ADC_Decimation_Mode11 {8} \
-   CONFIG.ADC_Mixer_Mode00 {0} \
+   CONFIG.ADC_Mixer_Mode00 {2} \
    CONFIG.ADC_Mixer_Mode10 {0} \
    CONFIG.ADC_Mixer_Mode11 {0} \
    CONFIG.ADC_Mixer_Type00 {3} \
@@ -761,7 +760,7 @@ proc create_root_design { parentCell } {
    CONFIG.DAC1_Sampling_Rate {3.072} \
    CONFIG.DAC_Data_Type12 {0} \
    CONFIG.DAC_Data_Width11 {4} \
-   CONFIG.DAC_Data_Width12 {7} \
+   CONFIG.DAC_Data_Width12 {16} \
    CONFIG.DAC_Interpolation_Mode11 {8} \
    CONFIG.DAC_Interpolation_Mode12 {0} \
    CONFIG.DAC_Mixer_Mode11 {0} \
@@ -2344,9 +2343,9 @@ proc create_root_design { parentCell } {
   assign_bd_address -offset 0xA0090000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/probes/data_inspector_tx_4M/AXI4_Lite/reg0] -force
   assign_bd_address -offset 0xA00C0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/probes/data_inspector_tx_sym/AXI4_Lite/reg0] -force
   assign_bd_address -offset 0xB0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_rx/dma_rx_1M/S_AXI_LITE/Reg] -force
+  assign_bd_address -offset 0xA0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/probes/dma_tx_1M/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0xA00A0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/probes/dma_tx_2M/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0xA00B0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/probes/dma_tx_4M/S_AXI_LITE/Reg] -force
-  assign_bd_address -offset 0xA0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/probes/dma_tx_1M/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0xA00D0000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/probes/dma_tx_sym/S_AXI_LITE/Reg] -force
   assign_bd_address -offset 0xB0010000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_rx/ofdm_rx/AXI4_Lite/reg0] -force
   assign_bd_address -offset 0xA0020000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs ofdm_tx/ofdm_tx/AXI4_Lite/reg0] -force
