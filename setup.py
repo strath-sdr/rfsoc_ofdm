@@ -54,7 +54,7 @@ def copy_notebooks():
     dst_nb_dir = os.path.join(board_project_dir)
     copy_tree(src_nb_dir, dst_nb_dir)
     
-# copy assets to python package
+# copy images to python package
 def copy_images():
     src_at_dir = os.path.join(repo_board_folder, 'images')
     dst_at_dir = os.path.join(board_project_dir, 'images')
