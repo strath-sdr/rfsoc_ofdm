@@ -63,6 +63,8 @@ class OfdmOverlay(Overlay):
 
         if init_rf_clks:
             self.init_rf_clks(lmx_freq=384)
+            
+        self.fc = 2450
         
         # Extact in-use dataconverter objects with friendly names
         self.rf = self.usp_rf_data_converter_0
@@ -78,7 +80,7 @@ class OfdmOverlay(Overlay):
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
             'FineMixerScale': xrfdc.MIXER_SCALE_0P7,
-            'Freq':           2450,
+            'Freq':           -1 * self.fc,
             'MixerMode':      xrfdc.MIXER_MODE_C2R,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -92,7 +94,7 @@ class OfdmOverlay(Overlay):
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_TILE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           -2450,
+            'Freq':           self.fc,
             'MixerMode':      xrfdc.MIXER_MODE_R2C,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
@@ -147,12 +149,14 @@ class OfdmOverlay(Overlay):
         self.ofdm_tx.ofdm_tx.enable = 1
         
     def on_tx_carrier_change(self, change):
-        self.dac_block.MixerSettings['Freq'] = change['new']
+        # DAC NCO is -ve on even Nyquist
+        self.dac_block.MixerSettings['Freq'] = -1*change['new']  
         self.adc_block.UpdateEvent(xrfdc.EVENT_MIXER)
         self.adc_tile.SetupFIFO(True)
         
     def on_rx_carrier_change(self, change):
-        self.adc_block.MixerSettings['Freq'] = -1*change['new']
+        # ADC NCO is +ve on even Nyquist
+        self.adc_block.MixerSettings['Freq'] = change['new']
         self.adc_block.UpdateEvent(xrfdc.EVENT_MIXER)
         self.adc_tile.SetupFIFO(True)
         
