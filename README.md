@@ -5,7 +5,9 @@
 ## Introduction
 Add a brief introduction that describes the repository and any associated work i.e. papers, other datasets.
 
-<Add a .gif demonstrating a part of the work.>
+<p align="center">
+  <img src="./img/constellation.gif" width="935" height="360" />
+<p/>
 
 ## Quick Start
 This repository is only compatible with [PYNQ images v2.6 and greater](https://github.com/Xilinx/PYNQ/releases) for the [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html) and the [RFSoC2x2]().
