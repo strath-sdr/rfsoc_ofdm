@@ -1,8 +1,6 @@
 <img src="strathclyde_banner.png" width="100%">
 
 # RFSoC OFDM Transceiver
-
-## Introduction
 This repository contains an RFSoC demonstration of an Orthogonal Frequency Division Multiplexing (OFDM) transceiver.
 
 <p align="center">
