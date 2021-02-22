@@ -276,7 +276,7 @@ class OfdmOverlay(Overlay):
 
         tabs.observe(callback, names='selected_index')
 
-            def _tx_display_generator(self):
+    def _tx_display_generator(self):
         plot_tx_sym = self.plot_group(
             'tx_sym', ['time-binary'], self.ofdm_tx.get_tx_sym, fs=1e6
         )
