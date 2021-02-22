@@ -275,3 +275,58 @@ class OfdmOverlay(Overlay):
             plot.layout.autosize = True
 
         tabs.observe(callback, names='selected_index')
+
+            def _tx_display_generator(self):
+        plot_tx_sym = self.plot_group(
+            'tx_sym', ['time-binary'], self.ofdm_tx.get_tx_sym, fs=1e6
+        )
+        plot_tx_2M = self.plot_group(
+            'tx_2M', ['time-binary'], self.ofdm_tx.get_tx_2M, fs=2e6, y_range=[-0.3,0.3]
+        )
+        tx_display_widgets = [plot_tx_sym.children[0], plot_tx_2M.children[0]]
+        tx_display_tab_name = ['Symbols', 'Interpolated']
+        tx_display_tab = ipw.Tab(children=tx_display_widgets,
+                                layout=ipw.Layout(height='initial',
+                                                width='initial'))
+        for i in range(0, len(tx_display_widgets)):
+                tx_display_tab.set_title(i, tx_display_tab_name[i])
+        return tx_display_tab
+
+    def _rx_display_generator(self):
+        plot_rx_constellation = self.plot_group(
+            'rx_demod',             # Plot group's ID
+            ['constellation'],      # List of plot types chosen from:
+                                    # ['time','time-binary','frequency','constellation']
+            self.ofdm_rx.get_demod, # Function to grab a buffer of samples
+        )
+        rx_display_widgets = [plot_rx_constellation.children[0]]
+        rx_display_tab_name = ['Constellation']
+        rx_display_tab = ipw.Tab(children=rx_display_widgets,
+                                layout=ipw.Layout(height='initial',
+                                                width='initial'))
+        for i in range(0, len(rx_display_widgets)):
+                rx_display_tab.set_title(i, rx_display_tab_name[i])
+        return rx_display_tab
+
+    def _common_control_generator(self):
+        fc_widgets = self.carrier_frequency()
+        mod_widgets = self.modulation_type()
+        return ipw.VBox([fc_widgets, mod_widgets])
+        
+    def _ofdm_generator(self):
+        tx_display_widget = self._tx_display_generator()
+        rx_display_widget = self._rx_display_generator()
+        common_control_widget = self._common_control_generator()
+        control_accordion = ipw.Accordion(children=[common_control_widget])
+        tx_display_accordion = ipw.Accordion(children=[tx_display_widget])
+        control_accordion.set_title(0, 'System Control')
+        tx_display_accordion.set_title(0, 'Transmitter Visualisation')
+        side_bar = ipw.VBox([control_accordion, tx_display_accordion])
+        main_app = ipw.Accordion(children=[rx_display_widget])
+        main_app.set_title(0, 'Receiver Visualisation')
+        return ipw.HBox([side_bar, main_app])
+
+    def ofdm_demonstrator_application(self):
+        app = self._ofdm_generator()
+        self.resync()
+        return app
