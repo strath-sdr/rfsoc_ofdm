@@ -6,7 +6,7 @@
 Add a brief introduction that describes the repository and any associated work i.e. papers, other datasets.
 
 <p align="center">
-  <img src="./img/constellation.gif" width="686" height="640" />
+  <img src="demonstration.gif" width="874" height="502" />
 <p/>
 
 ## Quick Start
