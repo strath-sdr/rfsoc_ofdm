@@ -1,4 +1,4 @@
-<img src="strathclyde_banner.png" width="50%">
+<img src="strathclyde_banner.png" width="100%">
 
 # RFSoC OFDM Transceiver
 
