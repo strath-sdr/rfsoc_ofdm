@@ -37,7 +37,7 @@ def copy_overlays():
 # copy xrfclk file to python package
 def copy_xrfclk():
     src_at_dir = os.path.join(repo_board_folder, 'xrfclk')
-    dst_at_dir = os.path.join(os.path.dirname( __file__ ), "..", 'xrfclk')
+    dst_at_dir = '/usr/local/lib/python3.6/dist-packages/xrfclk/'
     copy_tree(src_at_dir, dst_at_dir)
     data_files.extend(
         [os.path.join("..", dst_at_dir, f) for f in os.listdir(dst_at_dir)])
