@@ -1,16 +1,16 @@
-<img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
+<img src="strathclyde_banner.png" width="50%">
 
 # RFSoC OFDM Transceiver
 
 ## Introduction
-Add a brief introduction that describes the repository and any associated work i.e. papers, other datasets.
+This repository contains an RFSoC demonstration of an Orthogonal Frequency Division Multiplexing (OFDM) transceiver.
 
 <p align="center">
   <img src="demonstration.gif" width="874" height="502" />
 <p/>
 
 ## Quick Start
-This repository is only compatible with [PYNQ images v2.6 and greater](https://github.com/Xilinx/PYNQ/releases) for the [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html) and the [RFSoC2x2]().
+This repository is only compatible with [PYNQ images v2.6 and greater](https://github.com/Xilinx/PYNQ/releases) for the [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html) and the [RFSoC2x2](http://rfsoc-pynq.io/).
 
 Connect to the board with **Jupyter Lab** in a browser (not Jupyter Notebook) by using a web browser `https://<IP address>:9090/lab`.
 
@@ -19,10 +19,13 @@ Open a terminal in Jupyter Lab and run the following command:
 pip3 install git+https://github.com/strath-sdr/rfsoc_ofdm
 ```
 
-The notebook should now be available in the `strath-sdr/standalone/rfsoc-ofdm` folder in your Jupyter Workspace.
+The notebook should now be available in the `ofdm-demonstration` folder in your Jupyter Workspace.
 It is important that you use the Chrome web browser if possible as rendering performance is important.
 
 Follow the remaining steps below for your development board to finish setting up the demonstration.
+
+## RFSoC2x2 Setup
+During package installation, a 384MHz clock description file will be added to the xrfclk package. This is used by the demonstration to create a 384MHz clock for RF DC PLLs.
 
 ## ZCU111 Setup
 We need to add a 384 MHz clock to the xrfclk package. We can simply overwrite __init__.py, with the changes.
@@ -32,16 +35,6 @@ cd /home/xilinx/GitHub/
 git clone https://github.com/dnorthcote/ZCU111-PYNQ
 cd /home/xilinx/GitHub/ZCU111-PYNQ
 cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfclk/pkg/xrfclk/__init__.py /usr/local/lib/python3.6/dist-packages/xrfclk/__init__.py
-```
-
-## RFSoC2x2 Setup
-We need to add a 384 MHz clock to the xrfclk package. We can simply add a new text file with the required clock configuration.
-```sh
-mkdir /home/xilinx/GitHub
-cd /home/xilinx/GitHub/
-git clone https://github.com/dnorthcote/ZCU111-PYNQ
-cd /home/xilinx/GitHub/ZCU111-PYNQ
-cp /home/xilinx/GitHub/ZCU111-PYNQ/ZCU111/packages/xrfclk/pkg/xrfclk/LMX2594_384.txt /usr/local/lib/python3.6/dist-packages/xrfclk/LMX2594_384.txt
 ```
 
 ## Using the Project Files
