@@ -8,7 +8,7 @@ from setuptools import find_packages, setup
 package_name = 'rfsoc_ofdm'
 pip_name = 'rfsoc-ofdm'
 board = os.environ['BOARD']
-repo_board_folder = f'boards/{board}/rfsoc_ofdm'
+repo_board_folder = f'boards/{board}/{package_name}'
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
 board_project_dir = os.path.join(board_notebooks_dir, 'ofdm-demonstrator')
 data_files = []
@@ -34,10 +34,10 @@ def copy_overlays():
     data_files.extend(
         [os.path.join("..", dst_ol_dir, f) for f in os.listdir(dst_ol_dir)])
 
-# copy assets to python package
-def copy_assets():
-    src_at_dir = os.path.join(repo_board_folder, 'assets')
-    dst_at_dir = os.path.join(package_name, 'assets')
+# copy xrfclk file to python package
+def copy_xrfclk():
+    src_at_dir = os.path.join(repo_board_folder, 'xrfclk')
+    dst_at_dir = '/usr/local/lib/python3.6/dist-packages/xrfclk/'
     copy_tree(src_at_dir, dst_at_dir)
     data_files.extend(
         [os.path.join("..", dst_at_dir, f) for f in os.listdir(dst_at_dir)])
@@ -58,7 +58,7 @@ def copy_notebooks():
 check_env()
 check_path()
 copy_overlays()
-copy_assets()
+copy_xrfclk()
 copy_drivers()
 copy_notebooks()
 
