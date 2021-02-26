@@ -1,9 +1,9 @@
 __author1__ = 'Lewis McLaughlin'
 __author2__ = 'Douglas Allan'
 __organisation__ = 'The University of Strathclyde'
-__date__ = '31st January 2021'
+__date__ = '22nd February 2021'
 __version_name__ = ''
-__version_number__ = '0.1'
+__version_number__ = '0.2'
 __channels__ = 'Single-Channel'
 __board__ = 'ZCU111'
 __release__ = 'development'
@@ -213,7 +213,7 @@ class OfdmOverlay(Overlay):
                 else:
                     f_plot = IQFreqPlot(
                                 [many(get_time_data) for _ in range(4)],
-                                fs, x_range=(-2000,2000), animation_period=100, w=700)
+                                fs, x_range=(-0.5e6,0.5e6), animation_period=100, w=700)
                     f_dt = DmaTimer(f_plot.add_frame, lambda:many(get_time_data), 0.3)
                 plots.append(dict(title='Frequency domain', plot=f_plot, control=f_dt))
             

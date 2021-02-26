@@ -1,3 +1,15 @@
+__author1__ = 'Lewis McLaughlin'
+__author2__ = 'Douglas Allan'
+__organisation__ = 'The University of Strathclyde'
+__date__ = '22nd February 2021'
+__version_name__ = ''
+__version_number__ = '0.2'
+__channels__ = 'Single-Channel'
+__board__ = 'ZCU111'
+__release__ = 'development'
+__info__ = 'PYNQ on RFSoC: OFDM Transmit and Receive'
+__support__ = '<a href="https://github.com/strath-sdr/rfsoc_ofdm" target="_blank" rel="noopener noreferrer">https://github.com/strath-sdr/rfsoc_ofdm</a>'
+
 from pynq import DefaultIP
 from pynq import DefaultHierarchy
 from pynq import allocate
@@ -15,20 +27,20 @@ class OFDMTx(DefaultHierarchy):
         
         self.probes.data_inspector_tx_sym.config_inspector(16, np.uint32)
         self.probes.data_inspector_tx_1M.config_inspector(16, np.uint32)
-        self.probes.data_inspector_tx_2M.config_inspector(16, np.uint32)
-        self.probes.data_inspector_tx_4M.config_inspector(16, np.uint32)
+        self.probes.data_inspector_tx_2M.config_inspector(32, np.uint32)
+        self.probes.data_inspector_tx_4M.config_inspector(32, np.uint32)
     
     def get_tx_sym(self):
-        return self.probes.data_inspector_tx_sym.get_frame(self.probes.dma_tx_sym)
+        return self.probes.data_inspector_tx_sym.get_data(self.probes.dma_tx_sym)
     
     def get_tx_1M(self):
-        return self.probes.data_inspector_tx_1M.get_frame(self.probes.dma_tx_1M)
+        return self.probes.data_inspector_tx_1M.get_data(self.probes.dma_tx_1M)
     
     def get_tx_2M(self):
-        return self.probes.data_inspector_tx_2M.get_frame(self.probes.dma_tx_2M)
+        return self.probes.data_inspector_tx_2M.get_data(self.probes.dma_tx_2M)
     
     def get_tx_4M(self):
-        return self.probes.data_inspector_tx_4M.get_frame(self.probes.dma_tx_4M)
+        return self.probes.data_inspector_tx_4M.get_data(self.probes.dma_tx_4M)
     
     def set_modulation(self, mod):
         switcher = {
