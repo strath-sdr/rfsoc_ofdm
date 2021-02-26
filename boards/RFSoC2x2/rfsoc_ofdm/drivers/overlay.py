@@ -162,13 +162,17 @@ class OfdmOverlay(Overlay):
         
     def carrier_frequency(self):
         self.tx_carrier_ipw = ipw.FloatText(
-            value=2450,
+            min=1536,
+            max=3072,
+            value=self.fc,
             description='Tx Carrier (MHz):',
             disabled=False,
             style={'description_width': 'initial'}
         )
         self.rx_carrier_ipw = ipw.FloatText(
-            value=2450,
+            min=1536,
+            max=3072,
+            value=self.fc,
             description='Rx Carrier (MHz):',
             disabled=False,
             style={'description_width': 'initial'}
