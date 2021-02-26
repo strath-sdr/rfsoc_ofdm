@@ -125,6 +125,7 @@ if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
 xilinx.com:ip:axi_intc:4.1\
 xilinx.com:ip:xlconcat:2.1\
+xilinx.com:ip:xlconstant:1.1\
 xilinx.com:ip:proc_sys_reset:5.0\
 xilinx.com:ip:usp_rf_data_converter:2.3\
 xilinx.com:ip:zynq_ultra_ps_e:3.3\
@@ -787,7 +788,8 @@ proc create_root_design { parentCell } {
   set vout10_0 [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:diff_analog_io_rtl:1.0 vout10_0 ]
 
 
-  # Create ports
+  ## Create ports
+  set lmk_reset [ create_bd_port -dir O -from 0 -to 0 lmk_reset ]
 
   # Create instance: axi_intc_fpd, and set properties
   set axi_intc_fpd [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_intc:4.1 axi_intc_fpd ]
@@ -812,6 +814,12 @@ proc create_root_design { parentCell } {
   set_property -dict [ list \
    CONFIG.NUM_PORTS {3} \
  ] $interrupt_concat_fpd
+
+  # Create instance: lmk_reset, and set properties
+  set lmk_reset [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 lmk_reset ]
+  set_property -dict [ list \
+   CONFIG.CONST_VAL {0} \
+ ] $lmk_reset
 
   # Create instance: ofdm_rx
   create_hier_cell_ofdm_rx [current_bd_instance .] ofdm_rx
@@ -2470,6 +2478,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net usp_rf_data_converter_0_clk_dac1 [get_bd_pins axi_interconnect_hpm0_fpd/M00_ACLK] [get_bd_pins ofdm_tx/clk_dac_192M] [get_bd_pins usp_rf_data_converter_0/clk_dac1] [get_bd_pins usp_rf_data_converter_0/s1_axis_aclk] [get_bd_pins zynq_ultra_ps_e_0/saxihp2_fpd_aclk]
   connect_bd_net -net usp_rf_data_converter_0_irq [get_bd_pins interrupt_concat_fpd/In0] [get_bd_pins usp_rf_data_converter_0/irq]
   connect_bd_net -net xlconcat_0_dout [get_bd_pins axi_intc_fpd/intr] [get_bd_pins interrupt_concat_fpd/dout]
+  connect_bd_net -net xlconstant_0_dout [get_bd_ports lmk_reset] [get_bd_pins lmk_reset/dout]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins axi_intc_fpd/s_axi_aclk] [get_bd_pins axi_interconnect_hpm0_fpd/ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M01_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/M02_ACLK] [get_bd_pins axi_interconnect_hpm0_fpd/S00_ACLK] [get_bd_pins axi_interconnect_hpm1_fpd/ACLK] [get_bd_pins axi_interconnect_hpm1_fpd/S00_ACLK] [get_bd_pins reset_ps8_100M/slowest_sync_clk] [get_bd_pins usp_rf_data_converter_0/s_axi_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm1_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
   connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins ofdm_rx/ext_reset_in] [get_bd_pins ofdm_tx/ext_reset_in] [get_bd_pins reset_ps8_100M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
 
