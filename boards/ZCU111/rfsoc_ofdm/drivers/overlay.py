@@ -1,7 +1,7 @@
 __author1__ = 'Lewis McLaughlin'
 __author2__ = 'Douglas Allan'
 __organisation__ = 'The University of Strathclyde'
-__date__ = '22nd February 2021'
+__date__ = '26th February 2021'
 __version_name__ = ''
 __version_number__ = '0.2'
 __channels__ = 'Single-Channel'
@@ -78,7 +78,7 @@ class OfdmOverlay(Overlay):
             'CoarseMixFreq':  xrfdc.COARSE_MIX_BYPASS,
             'EventSource':    xrfdc.EVNT_SRC_IMMEDIATE,
             'FineMixerScale': xrfdc.MIXER_SCALE_1P0,
-            'Freq':           -1 * self.fc,
+            'Freq':           -self.fc,
             'MixerMode':      xrfdc.MIXER_MODE_C2R,
             'MixerType':      xrfdc.MIXER_TYPE_FINE,
             'PhaseOffset':    0.0
