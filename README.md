@@ -29,7 +29,7 @@ Follow the instructions below to install the OFDM demonstrator on your developme
 pip3 install git+https://github.com/strath-sdr/rfsoc_ofdm
 ```
 
-The notebook should now be available in the `ofdm-demonstration` folder in your Jupyter Workspace.
+The notebook should now be available in the `ofdm-demonstrator` folder in your Jupyter Workspace.
 It is important that you use the Chrome web browser if possible as rendering performance is important.
 
 Follow the remaining steps below for your development board to finish setting up the demonstration.
