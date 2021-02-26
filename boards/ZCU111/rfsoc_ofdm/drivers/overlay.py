@@ -132,7 +132,7 @@ class OfdmOverlay(Overlay):
         self.adc_tile.SetupFIFO(True)
         
     def carrier_frequency(self):
-        self.tx_carrier_ipw = ipw.FloatText(
+        self.tx_carrier_ipw = ipw.BoundedFloatText(
             min=1536,
             max=3072,
             value=self.fc,
@@ -140,7 +140,7 @@ class OfdmOverlay(Overlay):
             disabled=False,
             style={'description_width': 'initial'}
         )
-        self.rx_carrier_ipw = ipw.FloatText(
+        self.rx_carrier_ipw = ipw.BoundedFloatText(
             min=1536,
             max=3072,
             value=self.fc,
