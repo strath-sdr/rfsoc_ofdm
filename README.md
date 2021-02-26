@@ -14,13 +14,13 @@ Follow the instructions below to install the OFDM demonstrator on your developme
 * We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
 <p align="center">
-  <img src="../master/open_jupyter_launcher.jpg" width="50%" height="50%" />
+  <img src="./open_jupyter_launcher.jpg" width="50%" height="50%" />
 <p/>
 
 * Now open a terminal in Jupyter as illustrated below:
 
 <p align="center">
-  <img src="../master/open_terminal_window.jpg" width="50%" height="50%" />
+  <img src="./open_terminal_window.jpg" width="50%" height="50%" />
 <p/>
 
 * Now execute the following command in the terminal:
