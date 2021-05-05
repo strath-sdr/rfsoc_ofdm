@@ -100,7 +100,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">Model version
 </td>
-<td class="summaryTableSndColOddRow">1.285
+<td class="summaryTableSndColOddRow">1.288
 </td>
 </tr>
 <tr>
@@ -112,7 +112,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">IP core generated on
 </td>
-<td class="summaryTableSndColOddRow">05-May-2021 09:22:17
+<td class="summaryTableSndColOddRow">05-May-2021 22:15:55
 </td>
 </tr>
 <tr>
@@ -152,7 +152,7 @@ Target platform interface table:
 </thead>
 <tbody>
 <tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6089:2')">modScheme</a>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6469')">modScheme</a>
 </td>
 <td>Inport
 </td>
@@ -164,7 +164,7 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6089:353')">enable</a>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6470')">enable</a>
 </td>
 <td class="distinctCellColor">Inport
 </td>
@@ -176,27 +176,39 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6089:324')">data</a>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6815')">gain</a>
 </td>
-<td>Outport
+<td>Inport
 </td>
 <td>uint32
 </td>
-<td>External Port
+<td>AXI4-Lite
 </td>
-<td>
+<td>x"108"
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6089:337')">valid</a>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6739')">data</a>
 </td>
 <td class="distinctCellColor">Outport
 </td>
-<td class="distinctCellColor">boolean
+<td class="distinctCellColor">uint32
 </td>
 <td class="distinctCellColor">External Port
 </td>
 <td class="distinctCellColor">
+</td>
+</tr>
+<tr>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Tx_HW:6740')">valid</a>
+</td>
+<td>Outport
+</td>
+<td>boolean
+</td>
+<td>External Port
+</td>
+<td>
 </td>
 </tr>
 </tbody>
@@ -239,7 +251,7 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 </td>
 <td>0x8
 </td>
-<td>contains unique IP timestamp (yymmddHHMM): 2105050922
+<td>contains unique IP timestamp (yymmddHHMM): 2105052215
 </td>
 </tr>
 <tr>
@@ -256,6 +268,14 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 <td>0x104
 </td>
 <td>data register for Inport enable
+</td>
+</tr>
+<tr>
+<td class="distinctCellColor">gain_Data
+</td>
+<td class="distinctCellColor">0x108
+</td>
+<td class="distinctCellColor">data register for Inport gain
 </td>
 </tr>
 </tbody>
@@ -287,7 +307,7 @@ interface. To connect the external ports to the FPGA external IO pins, add FPGA 
 <br/><br/>
 The AXI4 Slave port to pipeline register ratio selected as 35 in task 3.2 for this model. The default delay to read AXI4 register is one clock cycle.
 Depending on the selected ratio and IO connected to AXI4 interface, register pipelining is introduced in the read logic of AXI4 registers.
-For your model AXI4 pipeline register ratio setting 35 is larger than all the readable AXI4 slave registers. Total readable AXI4 slave registers are 4, so no pipelining is added to the AXI4 register read back logic.
+For your model AXI4 pipeline register ratio setting 35 is larger than all the readable AXI4 slave registers. Total readable AXI4 slave registers are 5, so no pipelining is added to the AXI4 register read back logic.
 <br/><br/>
 <b>Processor/FPGA Synchronization</b>
 <br/><br/>

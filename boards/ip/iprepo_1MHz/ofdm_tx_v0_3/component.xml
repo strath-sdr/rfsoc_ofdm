@@ -269,7 +269,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>d2baa296</spirit:value>
+            <spirit:value>99d5779e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -285,7 +285,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>d2baa296</spirit:value>
+            <spirit:value>99d5779e</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -701,6 +701,10 @@
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>hdl/vhdl/ofdm_tx_src_OFDMTx_pkg.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_tx_src_OFDMTx_tc.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
@@ -882,10 +886,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_tx_src_RF_Signal_Generator.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/ofdm_tx_src_OFDMTx_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
@@ -1107,7 +1107,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_tx.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_c7b7ac06</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_2ccce702</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1129,6 +1129,11 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_tx_axi_lite.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/vhdl/ofdm_tx_src_OFDMTx_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1359,11 +1364,6 @@
       </spirit:file>
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_tx_src_RF_Signal_Generator.vhd</spirit:name>
-        <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>hdl/vhdl/ofdm_tx_src_OFDMTx_pkg.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
       </spirit:file>
@@ -1699,14 +1699,14 @@
       </xilinx:taxonomies>
       <xilinx:displayName>ofdm_tx</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>2105050922</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-05-05T08:22:29Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2105052215</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-05-05T21:16:07Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="91f34ec4"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="fa7bbd03"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="4cfc67c0"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="50e9bbd0"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="a5695ad6"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="d0203a32"/>
     </xilinx:packagingInfo>
