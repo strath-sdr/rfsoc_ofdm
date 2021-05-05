@@ -1,0 +1,122 @@
+{
+  'Line_167' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/fir_decimator_unique',
+    'Instance' => 'fir_decimator_unique',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/FIR Decimator Unique'
+  },
+  'Line_180' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/concat',
+    'Instance' => 'concat',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Concat'
+  },
+  'Line_189' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/constant_x0',
+    'Instance' => 'constant_x0',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Constant'
+  },
+  'Line_196' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/down_sample',
+    'Instance' => 'down_sample',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Down Sample'
+  },
+  'Line_220' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/down_sample1',
+    'Instance' => 'down_sample1',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Down Sample1'
+  },
+  'Line_244' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/register_x0',
+    'Instance' => 'register_x0',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Register'
+  },
+  'Line_257' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/register1',
+    'Instance' => 'register1',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Register1'
+  },
+  'Line_270' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/reinterpret',
+    'Instance' => 'reinterpret',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Reinterpret'
+  },
+  'Line_278' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/reinterpret1',
+    'Instance' => 'reinterpret1',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Reinterpret1'
+  },
+  'Line_286' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/reinterpret2',
+    'Instance' => 'reinterpret2',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Reinterpret2'
+  },
+  'Line_294' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/reinterpret3',
+    'Instance' => 'reinterpret3',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Reinterpret3'
+  },
+  'Line_302' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/slice',
+    'Instance' => 'slice',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Slice'
+  },
+  'Line_313' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/slice1',
+    'Instance' => 'slice1',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/Slice1'
+  },
+  'Line_372' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation',
+    'Instance' => 'unique_decimation',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation'
+  },
+  'Line_435' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation',
+    'Instance' => 'unique_decimation',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation'
+  },
+  'Line_46' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/fir_decimator_unique/convert7',
+    'Instance' => 'convert7',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/FIR Decimator Unique/Convert7'
+  },
+  'Line_498' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate',
+    'Instance' => 'decimate',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate'
+  },
+  'Line_534' => {
+    'CodeInstance' => 'ofdm_rx_hw_default_clock_driver/clockdriver_x1',
+    'Instance' => 'clockdriver_x1',
+    'SimulinkInstance' => ''
+  },
+  'Line_546' => {
+    'CodeInstance' => 'ofdm_rx_hw_default_clock_driver/clockdriver_x0',
+    'Instance' => 'clockdriver_x0',
+    'SimulinkInstance' => ''
+  },
+  'Line_558' => {
+    'CodeInstance' => 'ofdm_rx_hw_default_clock_driver/clockdriver',
+    'Instance' => 'clockdriver',
+    'SimulinkInstance' => ''
+  },
+  'Line_597' => {
+    'CodeInstance' => 'ofdm_rx_hw_default_clock_driver',
+    'Instance' => 'ofdm_rx_hw_default_clock_driver',
+    'SimulinkInstance' => ''
+  },
+  'Line_609' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct',
+    'Instance' => 'ofdm_rx_hw_struct',
+    'SimulinkInstance' => 'OFDM_Rx_HW'
+  },
+  'Line_67' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/fir_decimator_unique/convert8',
+    'Instance' => 'convert8',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/FIR Decimator Unique/Convert8'
+  },
+  'Line_88' => {
+    'CodeInstance' => 'ofdm_rx_hw_struct/decimate/unique_decimation/unique_decimation/fir_decimator_unique/fir_stage_unique',
+    'Instance' => 'fir_stage_unique',
+    'SimulinkInstance' => 'OFDM_Rx_HW/decimate/Unique Decimation/Unique Decimation/FIR Decimator Unique/FIR Stage Unique'
+  }
+}
