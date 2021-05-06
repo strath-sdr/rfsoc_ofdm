@@ -245,6 +245,10 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i5/ofdm_tx_hw_fir_compiler_v7_2_i5.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>constrs/ofdm_tx_hw.xdc</spirit:name>
         <spirit:userFileType>xdc</spirit:userFileType>
       </spirit:file>
@@ -296,7 +300,7 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
       <spirit:file>
         <spirit:name>hdl/ofdm_tx_hw.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_0604b74b</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_49994b31</spirit:userFileType>
         <spirit:logicalName>xil_defaultlib</spirit:logicalName>
       </spirit:file>
     </spirit:fileSet>
@@ -320,6 +324,10 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
       </spirit:file>
       <spirit:file>
         <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i4/ofdm_tx_hw_fir_compiler_v7_2_i4.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i5/ofdm_tx_hw_fir_compiler_v7_2_i5.xci</spirit:name>
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
@@ -423,8 +431,8 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         <xilinx:xpmLibrary>XPM_FIFO</xilinx:xpmLibrary>
         <xilinx:xpmLibrary>XPM_CDC</xilinx:xpmLibrary>
       </xilinx:xpmLibraries>
-      <xilinx:coreRevision>251116158</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-05-05T09:29:31Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>251203471</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-05-06T09:44:53Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>

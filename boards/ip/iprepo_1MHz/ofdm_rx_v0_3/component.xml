@@ -313,7 +313,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>b686c99e</spirit:value>
+            <spirit:value>49d84941</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -329,7 +329,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>b686c99e</spirit:value>
+            <spirit:value>49d84941</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1434,7 +1434,7 @@
       <spirit:file>
         <spirit:name>hdl/vhdl/ofdm_rx.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_df54caf8</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_10769f13</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -2306,14 +2306,14 @@
       </xilinx:taxonomies>
       <xilinx:displayName>ofdm_rx</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>2105051438</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-05-05T13:38:39Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2105061039</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-05-06T09:39:27Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="bbb54f81"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="fa7bbd03"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7a3de2a8"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="e645bae6"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="5ff5194a"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="4512d4da"/>
     </xilinx:packagingInfo>

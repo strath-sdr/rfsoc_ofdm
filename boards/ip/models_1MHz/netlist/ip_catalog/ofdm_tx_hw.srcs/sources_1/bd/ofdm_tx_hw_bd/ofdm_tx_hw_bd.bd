@@ -1,0 +1,167 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xF79224B0A4291B79",
+      "design_src": "SYSGEN",
+      "device": "xczu28dr-ffvg1517-2-e",
+      "name": "ofdm_tx_hw_bd",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2020.1",
+      "validated": "true"
+    },
+    "design_tree": {
+      "ofdm_tx_hw_1": ""
+    },
+    "interface_ports": {
+      "m_axis": {
+        "mode": "Master",
+        "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+        "parameters": {
+          "TDATA_NUM_BYTES": {
+            "value": "8",
+            "value_src": "const_prop"
+          },
+          "TDEST_WIDTH": {
+            "value": "0",
+            "value_src": "const_prop"
+          },
+          "TID_WIDTH": {
+            "value": "0",
+            "value_src": "const_prop"
+          },
+          "TUSER_WIDTH": {
+            "value": "0",
+            "value_src": "const_prop"
+          },
+          "HAS_TREADY": {
+            "value": "0",
+            "value_src": "const_prop"
+          },
+          "HAS_TSTRB": {
+            "value": "0",
+            "value_src": "const_prop"
+          },
+          "HAS_TKEEP": {
+            "value": "0",
+            "value_src": "const_prop"
+          },
+          "HAS_TLAST": {
+            "value": "0",
+            "value_src": "const_prop"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "ofdm_tx_hw_bd_clk",
+            "value_src": "default"
+          },
+          "LAYERED_METADATA": {
+            "value": "xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 64} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} signed {attribs {resolve_type immediate dependency {} format bool minimum {} maximum {}} value false}}}}}}",
+            "value_src": "const_prop"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "ports": {
+      "clk": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "ASSOCIATED_BUSIF": {
+            "value": "m_axis",
+            "value_src": "default"
+          },
+          "CLK_DOMAIN": {
+            "value": "ofdm_tx_hw_bd_clk",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "100000000",
+            "value_src": "default"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
+      },
+      "data": {
+        "type": "data",
+        "direction": "I",
+        "left": "31",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "valid": {
+        "type": "data",
+        "direction": "I",
+        "left": "0",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      }
+    },
+    "components": {
+      "ofdm_tx_hw_1": {
+        "vlnv": "User_Company:SysGen:ofdm_tx_hw:1.0",
+        "xci_name": "ofdm_tx_hw_bd_ofdm_tx_hw_1_0"
+      }
+    },
+    "interface_nets": {
+      "ofdm_tx_hw_1_m_axis": {
+        "interface_ports": [
+          "m_axis",
+          "ofdm_tx_hw_1/m_axis"
+        ]
+      }
+    },
+    "nets": {
+      "clk_1": {
+        "ports": [
+          "clk",
+          "ofdm_tx_hw_1/clk"
+        ]
+      },
+      "data_1": {
+        "ports": [
+          "data",
+          "ofdm_tx_hw_1/data"
+        ]
+      },
+      "valid_1": {
+        "ports": [
+          "valid",
+          "ofdm_tx_hw_1/valid"
+        ]
+      }
+    }
+  }
+}

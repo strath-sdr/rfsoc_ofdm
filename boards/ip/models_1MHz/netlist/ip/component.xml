@@ -2,21 +2,21 @@
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <spirit:vendor>User_Company</spirit:vendor>
   <spirit:library>SysGen</spirit:library>
-  <spirit:name>ofdm_rx_hw</spirit:name>
+  <spirit:name>ofdm_tx_hw</spirit:name>
   <spirit:version>1.0</spirit:version>
   <spirit:busInterfaces>
     <spirit:busInterface>
-      <spirit:name>s_axis_im</spirit:name>
+      <spirit:name>m_axis</spirit:name>
       <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
       <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
-      <spirit:slave/>
+      <spirit:master/>
       <spirit:portMaps>
         <spirit:portMap>
           <spirit:logicalPort>
             <spirit:name>TDATA</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>s_axis_tdata_im</spirit:name>
+            <spirit:name>m_axis_tdata</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
         <spirit:portMap>
@@ -24,40 +24,23 @@
             <spirit:name>TVALID</spirit:name>
           </spirit:logicalPort>
           <spirit:physicalPort>
-            <spirit:name>s_axis_tvalid_im</spirit:name>
+            <spirit:name>m_axis_tvalid</spirit:name>
           </spirit:physicalPort>
         </spirit:portMap>
       </spirit:portMaps>
-    </spirit:busInterface>
-    <spirit:busInterface>
-      <spirit:name>s_axis_re</spirit:name>
-      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
-      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
-      <spirit:slave/>
-      <spirit:portMaps>
-        <spirit:portMap>
-          <spirit:logicalPort>
-            <spirit:name>TDATA</spirit:name>
-          </spirit:logicalPort>
-          <spirit:physicalPort>
-            <spirit:name>s_axis_tdata_re</spirit:name>
-          </spirit:physicalPort>
-        </spirit:portMap>
-        <spirit:portMap>
-          <spirit:logicalPort>
-            <spirit:name>TVALID</spirit:name>
-          </spirit:logicalPort>
-          <spirit:physicalPort>
-            <spirit:name>s_axis_tvalid_re</spirit:name>
-          </spirit:physicalPort>
-        </spirit:portMap>
-      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>LAYERED_METADATA</spirit:name>
+          <spirit:value spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.M_AXIS.LAYERED_METADATA">xilinx.com:interface:datatypes:1.0 {TDATA {datatype {name {attribs {resolve_type immediate dependency {} format string minimum {} maximum {}} value {}} bitwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 64} bitoffset {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} real {fixed {fractwidth {attribs {resolve_type immediate dependency {} format long minimum {} maximum {}} value 0} signed {attribs {resolve_type i
+mmediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
     </spirit:busInterface>
     <spirit:busInterface>
       <spirit:name>data</spirit:name>
       <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
       <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
-      <spirit:master/>
+      <spirit:slave/>
       <spirit:portMaps>
         <spirit:portMap>
           <spirit:logicalPort>
@@ -87,7 +70,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>ASSOCIATED_BUSIF</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_BUSIF">s_axis_im:s_axis_re:data</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.CLK.ASSOCIATED_BUSIF">m_axis:data</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -95,7 +78,7 @@
       <spirit:name>valid</spirit:name>
       <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data" spirit:version="1.0"/>
       <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="data_rtl" spirit:version="1.0"/>
-      <spirit:master/>
+      <spirit:slave/>
       <spirit:portMaps>
         <spirit:portMap>
           <spirit:logicalPort>
@@ -122,7 +105,7 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         <spirit:displayName>VHDL Synthesis</spirit:displayName>
         <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:synthesis</spirit:envIdentifier>
         <spirit:language>vhdl</spirit:language>
-        <spirit:modelName>ofdm_rx_hw</spirit:modelName>
+        <spirit:modelName>ofdm_tx_hw</spirit:modelName>
         <spirit:fileSetRef>
           <spirit:localName>xilinx_vhdlsynthesis_view_fileset</spirit:localName>
         </spirit:fileSetRef>
@@ -132,7 +115,7 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         <spirit:displayName>VHDL Simulation</spirit:displayName>
         <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:simulation</spirit:envIdentifier>
         <spirit:language>vhdl</spirit:language>
-        <spirit:modelName>ofdm_rx_hw</spirit:modelName>
+        <spirit:modelName>ofdm_tx_hw</spirit:modelName>
         <spirit:fileSetRef>
           <spirit:localName>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:localName>
         </spirit:fileSetRef>
@@ -156,51 +139,11 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
     </spirit:views>
     <spirit:ports>
       <spirit:port>
-        <spirit:name>s_axis_tdata_im</spirit:name>
+        <spirit:name>data</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long">127</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>s_axis_tdata_re</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">127</spirit:left>
-            <spirit:right spirit:format="long">0</spirit:right>
-          </spirit:vector>
-          <spirit:wireTypeDefs>
-            <spirit:wireTypeDef>
-              <spirit:typeName>std_logic_vector</spirit:typeName>
-              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
-              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
-            </spirit:wireTypeDef>
-          </spirit:wireTypeDefs>
-          <spirit:driver>
-            <spirit:defaultValue spirit:format="long">0</spirit:defaultValue>
-          </spirit:driver>
-        </spirit:wire>
-      </spirit:port>
-      <spirit:port>
-        <spirit:name>s_axis_tvalid_im</spirit:name>
-        <spirit:wire>
-          <spirit:direction>in</spirit:direction>
-          <spirit:vector>
-            <spirit:left spirit:format="long">0</spirit:left>
+            <spirit:left spirit:format="long">31</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -213,7 +156,7 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>s_axis_tvalid_re</spirit:name>
+        <spirit:name>valid</spirit:name>
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
@@ -243,11 +186,11 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>data</spirit:name>
+        <spirit:name>m_axis_tdata</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:left spirit:format="long">63</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -260,7 +203,7 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         </spirit:wire>
       </spirit:port>
       <spirit:port>
-        <spirit:name>valid</spirit:name>
+        <spirit:name>m_axis_tvalid</spirit:name>
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
@@ -282,11 +225,31 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>ofdm_rx_hw_fir_compiler_v7_2_i0/ofdm_rx_hw_fir_compiler_v7_2_i0.xci</spirit:name>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i0/ofdm_tx_hw_fir_compiler_v7_2_i0.xci</spirit:name>
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>constrs/ofdm_rx_hw.xdc</spirit:name>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i1/ofdm_tx_hw_fir_compiler_v7_2_i1.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i2/ofdm_tx_hw_fir_compiler_v7_2_i2.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i3/ofdm_tx_hw_fir_compiler_v7_2_i3.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i4/ofdm_tx_hw_fir_compiler_v7_2_i4.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i5/ofdm_tx_hw_fir_compiler_v7_2_i5.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>constrs/ofdm_tx_hw.xdc</spirit:name>
         <spirit:userFileType>xdc</spirit:userFileType>
       </spirit:file>
       <spirit:file>
@@ -330,21 +293,41 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         <spirit:logicalName>xil_defaultlib</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/ofdm_rx_hw_entity_declarations.vhd</spirit:name>
+        <spirit:name>hdl/ofdm_tx_hw_entity_declarations.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:logicalName>xil_defaultlib</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/ofdm_rx_hw.vhd</spirit:name>
+        <spirit:name>hdl/ofdm_tx_hw.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_72583742</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_49994b31</spirit:userFileType>
         <spirit:logicalName>xil_defaultlib</spirit:logicalName>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>ofdm_rx_hw_fir_compiler_v7_2_i0/ofdm_rx_hw_fir_compiler_v7_2_i0.xci</spirit:name>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i0/ofdm_tx_hw_fir_compiler_v7_2_i0.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i1/ofdm_tx_hw_fir_compiler_v7_2_i1.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i2/ofdm_tx_hw_fir_compiler_v7_2_i2.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i3/ofdm_tx_hw_fir_compiler_v7_2_i3.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i4/ofdm_tx_hw_fir_compiler_v7_2_i4.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>ofdm_tx_hw_fir_compiler_v7_2_i5/ofdm_tx_hw_fir_compiler_v7_2_i5.xci</spirit:name>
         <spirit:userFileType>xci</spirit:userFileType>
       </spirit:file>
       <spirit:file>
@@ -396,13 +379,13 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
         <spirit:logicalName>xil_defaultlib</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/ofdm_rx_hw_entity_declarations.vhd</spirit:name>
+        <spirit:name>hdl/ofdm_tx_hw_entity_declarations.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
         <spirit:logicalName>xil_defaultlib</spirit:logicalName>
       </spirit:file>
       <spirit:file>
-        <spirit:name>hdl/ofdm_rx_hw.vhd</spirit:name>
+        <spirit:name>hdl/ofdm_tx_hw.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
         <spirit:userFileType>USED_IN_ipstatic</spirit:userFileType>
         <spirit:logicalName>xil_defaultlib</spirit:logicalName>
@@ -411,7 +394,7 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
     <spirit:fileSet>
       <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>xgui/ofdm_rx_hw_v1_0.tcl</spirit:name>
+        <spirit:name>xgui/ofdm_tx_hw_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_f64a5dae</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
@@ -430,7 +413,7 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
   <spirit:parameters>
     <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
-      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">ofdm_rx_hw_v1_0</spirit:value>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">ofdm_tx_hw_v1_0</spirit:value>
     </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
@@ -441,15 +424,15 @@ ediate dependency {} format bool minimum {} maximum {}} value false}}}}}}</spiri
       <xilinx:taxonomies>
         <xilinx:taxonomy>/System_Generator_for_DSP</xilinx:taxonomy>
       </xilinx:taxonomies>
-      <xilinx:displayName>ofdm_rx_hw</xilinx:displayName>
+      <xilinx:displayName>ofdm_tx_hw</xilinx:displayName>
       <xilinx:definitionSource>sysgen</xilinx:definitionSource>
       <xilinx:xpmLibraries>
         <xilinx:xpmLibrary>XPM_MEMORY</xilinx:xpmLibrary>
         <xilinx:xpmLibrary>XPM_FIFO</xilinx:xpmLibrary>
         <xilinx:xpmLibrary>XPM_CDC</xilinx:xpmLibrary>
       </xilinx:xpmLibraries>
-      <xilinx:coreRevision>251130702</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-05-05T13:31:51Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>251203471</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-05-06T09:44:53Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.1</xilinx:xilinxVersion>

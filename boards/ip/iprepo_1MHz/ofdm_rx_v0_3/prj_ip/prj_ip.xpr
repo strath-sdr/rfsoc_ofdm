@@ -6,7 +6,7 @@
 <Project Version="7" Minor="49" Path="C:/GitHub/Forks/rfsoc_ofdm/boards/ip/models_1MHz/hdl_prj/ipcore/ofdm_rx_v0_3/prj_ip/prj_ip.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="f4f465dc57bd4578975d622d57d7fa8f"/>
+    <Option Name="Id" Val="346b23c859384222a883325020ec8411"/>
     <Option Name="Part" Val="xczu28dr-ffvg1517-2-e"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>

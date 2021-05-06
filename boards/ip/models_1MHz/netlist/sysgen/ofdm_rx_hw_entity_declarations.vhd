@@ -639,7 +639,7 @@ use IEEE.numeric_std.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
 
-entity xlfir_compiler_7bf387c2bf9dd75f425798a7705173bc is 
+entity xlfir_compiler_eb3091b802170fba68a5d5df50db1f28 is 
   port(
     ce:in std_logic;
     ce_128:in std_logic;
@@ -649,8 +649,8 @@ entity xlfir_compiler_7bf387c2bf9dd75f425798a7705173bc is
     clk_128:in std_logic;
     clk_256:in std_logic;
     clk_logic_128:in std_logic;
-    m_axis_data_tdata_path0:out std_logic_vector(31 downto 0);
-    m_axis_data_tdata_path1:out std_logic_vector(31 downto 0);
+    m_axis_data_tdata_path0:out std_logic_vector(32 downto 0);
+    m_axis_data_tdata_path1:out std_logic_vector(32 downto 0);
     m_axis_data_tvalid:out std_logic;
     s_axis_data_tdata_path0:in std_logic_vector(15 downto 0);
     s_axis_data_tdata_path1:in std_logic_vector(15 downto 0);
@@ -658,35 +658,35 @@ entity xlfir_compiler_7bf387c2bf9dd75f425798a7705173bc is
     src_ce:in std_logic;
     src_clk:in std_logic
   );
-end xlfir_compiler_7bf387c2bf9dd75f425798a7705173bc; 
+end xlfir_compiler_eb3091b802170fba68a5d5df50db1f28; 
 
-architecture behavior of xlfir_compiler_7bf387c2bf9dd75f425798a7705173bc  is
+architecture behavior of xlfir_compiler_eb3091b802170fba68a5d5df50db1f28  is
   component ofdm_rx_hw_fir_compiler_v7_2_i0
     port(
       aclk:in std_logic;
       aclken:in std_logic;
-      m_axis_data_tdata:out std_logic_vector(63 downto 0);
+      m_axis_data_tdata:out std_logic_vector(79 downto 0);
       m_axis_data_tvalid:out std_logic;
       s_axis_data_tdata:in std_logic_vector(31 downto 0);
       s_axis_data_tready:out std_logic;
       s_axis_data_tvalid:in std_logic
     );
 end component;
-signal m_axis_data_tdata_net: std_logic_vector(63 downto 0) := (others=>'0');
-signal m_axis_data_tdata_path1_ps_net: std_logic_vector(31 downto 0) := (others=>'0');
-signal m_axis_data_tdata_path0_ps_net: std_logic_vector(31 downto 0) := (others=>'0');
+signal m_axis_data_tdata_net: std_logic_vector(79 downto 0) := (others=>'0');
+signal m_axis_data_tdata_path1_ps_net: std_logic_vector(32 downto 0) := (others=>'0');
+signal m_axis_data_tdata_path0_ps_net: std_logic_vector(32 downto 0) := (others=>'0');
 signal m_axis_data_tvalid_ps_net: std_logic := '0';
 signal m_axis_data_tvalid_ps_net_captured: std_logic := '0';
 signal m_axis_data_tvalid_ps_net_or_captured_net: std_logic := '0';
 signal s_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
 begin
-  m_axis_data_tdata_path1_ps_net <= m_axis_data_tdata_net(63 downto 32);
-  m_axis_data_tdata_path0_ps_net <= m_axis_data_tdata_net(31 downto 0);
+  m_axis_data_tdata_path1_ps_net <= m_axis_data_tdata_net(72 downto 40);
+  m_axis_data_tdata_path0_ps_net <= m_axis_data_tdata_net(32 downto 0);
   s_axis_data_tdata_net(31 downto 16) <= s_axis_data_tdata_path1;
   s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_path0;
   m_axis_data_tdata_path1_ps_net_synchronizer : entity work.synth_reg_w_init
     generic map(
-        width => 32,
+        width => 33,
         init_index => 0,
         init_value => "0",
         latency => 1
@@ -700,7 +700,7 @@ begin
     );
   m_axis_data_tdata_path0_ps_net_synchronizer : entity work.synth_reg_w_init
     generic map(
-        width => 32,
+        width => 33,
         init_index => 0,
         init_value => "0",
         latency => 1

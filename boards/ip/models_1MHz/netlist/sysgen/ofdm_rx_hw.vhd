@@ -18,20 +18,20 @@ entity ofdm_rx_hw_fir_decimator_unique is
   );
 end ofdm_rx_hw_fir_decimator_unique;
 architecture structural of ofdm_rx_hw_fir_decimator_unique is 
-  signal clk_net : std_logic;
-  signal src_ce_net : std_logic;
-  signal fir_stage_unique_m_axis_data_tdata_path0_net : std_logic_vector( 32-1 downto 0 );
-  signal src_clk_net : std_logic;
-  signal ce_net_x0 : std_logic;
-  signal clk_net_x0 : std_logic;
-  signal fir_stage_unique_m_axis_data_tdata_path1_net : std_logic_vector( 32-1 downto 0 );
-  signal ce_net : std_logic;
+  signal fir_stage_unique_m_axis_data_tdata_path0_net : std_logic_vector( 33-1 downto 0 );
+  signal fir_stage_unique_m_axis_data_tdata_path1_net : std_logic_vector( 33-1 downto 0 );
   signal fir_stage_unique_s_axis_data_tready_net : std_logic;
   signal fir_stage_unique_m_axis_data_tvalid_net : std_logic;
   signal down_sample_q_net : std_logic_vector( 16-1 downto 0 );
-  signal down_sample1_q_net : std_logic_vector( 16-1 downto 0 );
   signal convert7_dout_net : std_logic_vector( 16-1 downto 0 );
   signal convert8_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal down_sample1_q_net : std_logic_vector( 16-1 downto 0 );
+  signal ce_net : std_logic;
+  signal src_clk_net : std_logic;
+  signal src_ce_net : std_logic;
+  signal ce_net_x0 : std_logic;
+  signal clk_net : std_logic;
+  signal clk_net_x0 : std_logic;
 begin
   re_data_out <= convert7_dout_net;
   im_data_out <= convert8_dout_net;
@@ -48,7 +48,7 @@ begin
     bool_conversion => 0,
     din_arith => 2,
     din_bin_pt => 29,
-    din_width => 32,
+    din_width => 33,
     dout_arith => 2,
     dout_bin_pt => 14,
     dout_width => 16,
@@ -69,7 +69,7 @@ begin
     bool_conversion => 0,
     din_arith => 2,
     din_bin_pt => 29,
-    din_width => 32,
+    din_width => 33,
     dout_arith => 2,
     dout_bin_pt => 14,
     dout_width => 16,
@@ -85,7 +85,7 @@ begin
     ce => ce_net_x0,
     dout => convert8_dout_net
   );
-  fir_stage_unique : entity xil_defaultlib.xlfir_compiler_7bf387c2bf9dd75f425798a7705173bc 
+  fir_stage_unique : entity xil_defaultlib.xlfir_compiler_eb3091b802170fba68a5d5df50db1f28 
   port map (
     s_axis_data_tdata_path1 => down_sample_q_net,
     s_axis_data_tdata_path0 => down_sample1_q_net,
@@ -127,30 +127,30 @@ entity ofdm_rx_hw_unique_decimation_x0 is
   );
 end ofdm_rx_hw_unique_decimation_x0;
 architecture structural of ofdm_rx_hw_unique_decimation_x0 is 
-  signal s_axis_tdata_im_net : std_logic_vector( 128-1 downto 0 );
   signal s_axis_tdata_re_net : std_logic_vector( 128-1 downto 0 );
-  signal concat_y_net : std_logic_vector( 32-1 downto 0 );
-  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
-  signal s_axis_tvalid_re_net : std_logic_vector( 1-1 downto 0 );
   signal clk_net : std_logic;
-  signal s_axis_tvalid_im_net : std_logic_vector( 1-1 downto 0 );
-  signal ce_net : std_logic;
-  signal src_clk_net : std_logic;
-  signal src_ce_net : std_logic;
-  signal ce_net_x0 : std_logic;
-  signal convert8_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal clk_net_x0 : std_logic;
   signal down_sample_q_net : std_logic_vector( 16-1 downto 0 );
-  signal convert7_dout_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal down_sample1_q_net : std_logic_vector( 16-1 downto 0 );
+  signal src_clk_net : std_logic;
+  signal convert8_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal ce_net_x0 : std_logic;
+  signal reinterpret3_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal src_ce_net : std_logic;
+  signal ce_net : std_logic;
+  signal s_axis_tdata_im_net : std_logic_vector( 128-1 downto 0 );
+  signal s_axis_tvalid_re_net : std_logic_vector( 1-1 downto 0 );
+  signal constant_op_net : std_logic_vector( 1-1 downto 0 );
+  signal convert7_dout_net : std_logic_vector( 16-1 downto 0 );
+  signal clk_net_x0 : std_logic;
+  signal reinterpret2_output_port_net : std_logic_vector( 16-1 downto 0 );
+  signal concat_y_net : std_logic_vector( 32-1 downto 0 );
+  signal s_axis_tvalid_im_net : std_logic_vector( 1-1 downto 0 );
   signal register1_q_net : std_logic_vector( 16-1 downto 0 );
+  signal slice_y_net : std_logic_vector( 16-1 downto 0 );
+  signal register_q_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret_output_port_net : std_logic_vector( 16-1 downto 0 );
   signal reinterpret1_output_port_net : std_logic_vector( 16-1 downto 0 );
-  signal slice_y_net : std_logic_vector( 16-1 downto 0 );
   signal slice1_y_net : std_logic_vector( 16-1 downto 0 );
-  signal register_q_net : std_logic_vector( 16-1 downto 0 );
 begin
   data <= concat_y_net;
   s_axis_tdata_im_net <= s_axis_tdata_im;
@@ -344,18 +344,18 @@ entity ofdm_rx_hw_unique_decimation is
   );
 end ofdm_rx_hw_unique_decimation;
 architecture structural of ofdm_rx_hw_unique_decimation is 
+  signal ce_net : std_logic;
   signal concat_y_net : std_logic_vector( 32-1 downto 0 );
   signal s_axis_tdata_im_net : std_logic_vector( 128-1 downto 0 );
-  signal s_axis_tdata_re_net : std_logic_vector( 128-1 downto 0 );
   signal s_axis_tvalid_im_net : std_logic_vector( 1-1 downto 0 );
-  signal clk_net_x0 : std_logic;
-  signal ce_net_x0 : std_logic;
   signal s_axis_tvalid_re_net : std_logic_vector( 1-1 downto 0 );
-  signal src_clk_net : std_logic;
   signal constant_op_net : std_logic_vector( 1-1 downto 0 );
   signal clk_net : std_logic;
-  signal ce_net : std_logic;
+  signal s_axis_tdata_re_net : std_logic_vector( 128-1 downto 0 );
   signal src_ce_net : std_logic;
+  signal clk_net_x0 : std_logic;
+  signal ce_net_x0 : std_logic;
+  signal src_clk_net : std_logic;
 begin
   data <= concat_y_net;
   s_axis_tdata_im_net <= s_axis_tdata_im;
@@ -407,18 +407,18 @@ entity ofdm_rx_hw_decimate is
   );
 end ofdm_rx_hw_decimate;
 architecture structural of ofdm_rx_hw_decimate is 
-  signal concat_y_net : std_logic_vector( 32-1 downto 0 );
-  signal ce_net_x0 : std_logic;
-  signal s_axis_tvalid_re_net : std_logic_vector( 1-1 downto 0 );
-  signal clk_net : std_logic;
-  signal src_clk_net : std_logic;
-  signal s_axis_tdata_im_net : std_logic_vector( 128-1 downto 0 );
   signal s_axis_tdata_re_net : std_logic_vector( 128-1 downto 0 );
   signal constant_op_net : std_logic_vector( 1-1 downto 0 );
   signal ce_net : std_logic;
-  signal clk_net_x0 : std_logic;
-  signal src_ce_net : std_logic;
+  signal src_clk_net : std_logic;
+  signal s_axis_tdata_im_net : std_logic_vector( 128-1 downto 0 );
   signal s_axis_tvalid_im_net : std_logic_vector( 1-1 downto 0 );
+  signal clk_net : std_logic;
+  signal concat_y_net : std_logic_vector( 32-1 downto 0 );
+  signal s_axis_tvalid_re_net : std_logic_vector( 1-1 downto 0 );
+  signal src_ce_net : std_logic;
+  signal clk_net_x0 : std_logic;
+  signal ce_net_x0 : std_logic;
 begin
   data <= concat_y_net;
   s_axis_tdata_im_net <= s_axis_tdata_im;
@@ -470,18 +470,18 @@ entity ofdm_rx_hw_struct is
   );
 end ofdm_rx_hw_struct;
 architecture structural of ofdm_rx_hw_struct is 
-  signal s_axis_tvalid_re_net : std_logic_vector( 1-1 downto 0 );
-  signal concat_y_net : std_logic_vector( 32-1 downto 0 );
-  signal s_axis_tdata_im_net : std_logic_vector( 128-1 downto 0 );
-  signal s_axis_tdata_re_net : std_logic_vector( 128-1 downto 0 );
-  signal s_axis_tvalid_im_net : std_logic_vector( 1-1 downto 0 );
-  signal src_ce_net : std_logic;
-  signal ce_net : std_logic;
-  signal clk_net_x0 : std_logic;
-  signal clk_net : std_logic;
-  signal src_clk_net : std_logic;
-  signal ce_net_x0 : std_logic;
   signal constant_op_net : std_logic_vector( 1-1 downto 0 );
+  signal ce_net : std_logic;
+  signal s_axis_tvalid_im_net : std_logic_vector( 1-1 downto 0 );
+  signal s_axis_tvalid_re_net : std_logic_vector( 1-1 downto 0 );
+  signal s_axis_tdata_im_net : std_logic_vector( 128-1 downto 0 );
+  signal concat_y_net : std_logic_vector( 32-1 downto 0 );
+  signal s_axis_tdata_re_net : std_logic_vector( 128-1 downto 0 );
+  signal clk_net : std_logic;
+  signal src_ce_net : std_logic;
+  signal clk_net_x0 : std_logic;
+  signal ce_net_x0 : std_logic;
+  signal src_clk_net : std_logic;
 begin
   data <= concat_y_net;
   s_axis_tdata_im_net <= s_axis_tdata_im;
@@ -587,12 +587,12 @@ end ofdm_rx_hw;
 architecture structural of ofdm_rx_hw is 
   attribute core_generation_info : string;
   attribute core_generation_info of structural : architecture is "ofdm_rx_hw,sysgen_core_2020_1,{,compilation=IP Catalog,block_icon_display=Default,family=zynquplusRFSOC,part=xczu28dr,speed=-2-e,package=ffvg1517,synthesis_language=vhdl,hdl_library=xil_defaultlib,synthesis_strategy=Vivado Synthesis Defaults,implementation_strategy=Vivado Implementation Defaults,testbench=0,interface_doc=0,ce_clr=0,clock_period=3.90625,system_simulink_period=3.90625e-09,waveform_viewer=0,axilite_interface=0,ip_catalog_plugin=0,hwcosim_burst_mode=0,simulation_time=inf,concat=1,constant=1,convert=2,dsamp=2,fir_compiler_v7_2=1,register=2,reinterpret=4,slice=2,}";
-  signal clk_1_net : std_logic;
-  signal clk_256_net : std_logic;
   signal ce_1_net : std_logic;
-  signal clk_128_net : std_logic;
-  signal ce_128_net : std_logic;
   signal ce_256_net : std_logic;
+  signal clk_1_net : std_logic;
+  signal clk_128_net : std_logic;
+  signal clk_256_net : std_logic;
+  signal ce_128_net : std_logic;
 begin
   ofdm_rx_hw_default_clock_driver : entity xil_defaultlib.ofdm_rx_hw_default_clock_driver 
   port map (

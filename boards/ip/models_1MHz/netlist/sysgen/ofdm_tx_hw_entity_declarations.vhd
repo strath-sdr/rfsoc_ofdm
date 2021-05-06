@@ -675,14 +675,14 @@ use IEEE.numeric_std.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
 
-entity xlfir_compiler_34589e2dff6e1bd9d02cae96d57251cd is 
+entity xlfir_compiler_0bd83164e8b11fd74fa55bb10b4b08ee is 
   port(
     ce:in std_logic;
-    ce_16:in std_logic;
+    ce_32:in std_logic;
     ce_64:in std_logic;
     ce_logic_64:in std_logic;
     clk:in std_logic;
-    clk_16:in std_logic;
+    clk_32:in std_logic;
     clk_64:in std_logic;
     clk_logic_64:in std_logic;
     m_axis_data_tdata_path0:out std_logic_vector(30 downto 0);
@@ -694,10 +694,132 @@ entity xlfir_compiler_34589e2dff6e1bd9d02cae96d57251cd is
     src_ce:in std_logic;
     src_clk:in std_logic
   );
-end xlfir_compiler_34589e2dff6e1bd9d02cae96d57251cd; 
+end xlfir_compiler_0bd83164e8b11fd74fa55bb10b4b08ee; 
 
-architecture behavior of xlfir_compiler_34589e2dff6e1bd9d02cae96d57251cd  is
+architecture behavior of xlfir_compiler_0bd83164e8b11fd74fa55bb10b4b08ee  is
   component ofdm_tx_hw_fir_compiler_v7_2_i3
+    port(
+      aclk:in std_logic;
+      aclken:in std_logic;
+      m_axis_data_tdata:out std_logic_vector(63 downto 0);
+      m_axis_data_tvalid:out std_logic;
+      s_axis_data_tdata:in std_logic_vector(31 downto 0);
+      s_axis_data_tready:out std_logic;
+      s_axis_data_tvalid:in std_logic
+    );
+end component;
+signal m_axis_data_tdata_net: std_logic_vector(63 downto 0) := (others=>'0');
+signal m_axis_data_tdata_path1_ps_net: std_logic_vector(30 downto 0) := (others=>'0');
+signal m_axis_data_tdata_path0_ps_net: std_logic_vector(30 downto 0) := (others=>'0');
+signal m_axis_data_tvalid_ps_net: std_logic := '0';
+signal m_axis_data_tvalid_ps_net_captured: std_logic := '0';
+signal m_axis_data_tvalid_ps_net_or_captured_net: std_logic := '0';
+signal s_axis_data_tdata_net: std_logic_vector(31 downto 0) := (others=>'0');
+begin
+  m_axis_data_tdata_path1_ps_net <= m_axis_data_tdata_net(62 downto 32);
+  m_axis_data_tdata_path0_ps_net <= m_axis_data_tdata_net(30 downto 0);
+  s_axis_data_tdata_net(31 downto 16) <= s_axis_data_tdata_path1;
+  s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_path0;
+  m_axis_data_tdata_path1_ps_net_synchronizer : entity work.synth_reg_w_init
+    generic map(
+        width => 31,
+        init_index => 0,
+        init_value => "0",
+        latency => 1
+    )
+    port map (
+        i => m_axis_data_tdata_path1_ps_net,
+        ce => ce_32,
+        clr => '0',
+        clk => clk_32, 
+        o => m_axis_data_tdata_path1
+    );
+  m_axis_data_tdata_path0_ps_net_synchronizer : entity work.synth_reg_w_init
+    generic map(
+        width => 31,
+        init_index => 0,
+        init_value => "0",
+        latency => 1
+    )
+    port map (
+        i => m_axis_data_tdata_path0_ps_net,
+        ce => ce_32,
+        clr => '0',
+        clk => clk_32, 
+        o => m_axis_data_tdata_path0
+    );
+  m_axis_data_tvalid_ps_net_or_captured_net <= m_axis_data_tvalid_ps_net or m_axis_data_tvalid_ps_net_captured;
+m_axis_data_tvalid_ps_net_synchronizer_1 : entity work.synth_reg_w_init
+    generic map(
+        width => 1,
+        init_index => 0,
+        init_value => "0",
+        latency => 1
+    )
+    port map (
+        i(0) => m_axis_data_tvalid_ps_net_or_captured_net,
+        ce => ce_32,
+        clr => '0',
+        clk => clk_32, 
+        o(0) => m_axis_data_tvalid
+    );
+m_axis_data_tvalid_ps_net_synchronizer_2 : entity work.synth_reg_w_init
+    generic map(
+        width => 1,
+        init_index => 0,
+        init_value => "0",
+        latency => 1
+    )
+    port map (
+        i(0) => '1',
+        ce => m_axis_data_tvalid_ps_net,
+        clr => '0',
+        clk => clk_32, 
+        o(0) => m_axis_data_tvalid_ps_net_captured
+    );
+  ofdm_tx_hw_fir_compiler_v7_2_i3_instance : ofdm_tx_hw_fir_compiler_v7_2_i3
+    port map(
+      aclk=>clk,
+      aclken=>ce,
+      m_axis_data_tdata=>m_axis_data_tdata_net,
+      m_axis_data_tvalid=>m_axis_data_tvalid_ps_net,
+      s_axis_data_tdata=>s_axis_data_tdata_net,
+      s_axis_data_tready=>s_axis_data_tready,
+      s_axis_data_tvalid=>ce_logic_64
+    );
+end behavior;
+
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
+library xil_defaultlib;
+use xil_defaultlib.conv_pkg.all;
+
+entity xlfir_compiler_42d9ee8fec1c1de4836d29d2c33adc4b is 
+  port(
+    ce:in std_logic;
+    ce_16:in std_logic;
+    ce_32:in std_logic;
+    ce_logic_32:in std_logic;
+    clk:in std_logic;
+    clk_16:in std_logic;
+    clk_32:in std_logic;
+    clk_logic_32:in std_logic;
+    m_axis_data_tdata_path0:out std_logic_vector(30 downto 0);
+    m_axis_data_tdata_path1:out std_logic_vector(30 downto 0);
+    m_axis_data_tvalid:out std_logic;
+    s_axis_data_tdata_path0:in std_logic_vector(15 downto 0);
+    s_axis_data_tdata_path1:in std_logic_vector(15 downto 0);
+    s_axis_data_tready:out std_logic;
+    src_ce:in std_logic;
+    src_clk:in std_logic
+  );
+end xlfir_compiler_42d9ee8fec1c1de4836d29d2c33adc4b; 
+
+architecture behavior of xlfir_compiler_42d9ee8fec1c1de4836d29d2c33adc4b  is
+  component ofdm_tx_hw_fir_compiler_v7_2_i4
     port(
       aclk:in std_logic;
       aclken:in std_logic;
@@ -777,7 +899,7 @@ m_axis_data_tvalid_ps_net_synchronizer_2 : entity work.synth_reg_w_init
         clk => clk_16, 
         o(0) => m_axis_data_tvalid_ps_net_captured
     );
-  ofdm_tx_hw_fir_compiler_v7_2_i3_instance : ofdm_tx_hw_fir_compiler_v7_2_i3
+  ofdm_tx_hw_fir_compiler_v7_2_i4_instance : ofdm_tx_hw_fir_compiler_v7_2_i4
     port map(
       aclk=>clk,
       aclken=>ce,
@@ -785,7 +907,7 @@ m_axis_data_tvalid_ps_net_synchronizer_2 : entity work.synth_reg_w_init
       m_axis_data_tvalid=>m_axis_data_tvalid_ps_net,
       s_axis_data_tdata=>s_axis_data_tdata_net,
       s_axis_data_tready=>s_axis_data_tready,
-      s_axis_data_tvalid=>ce_logic_64
+      s_axis_data_tvalid=>ce_logic_32
     );
 end behavior;
 
@@ -797,7 +919,7 @@ use IEEE.numeric_std.all;
 library xil_defaultlib;
 use xil_defaultlib.conv_pkg.all;
 
-entity xlfir_compiler_d53bbda3cdf8e147d1d49193e80ae47b is 
+entity xlfir_compiler_7179711d24629e1bfb954cb91f8ef22a is 
   port(
     ce:in std_logic;
     ce_16:in std_logic;
@@ -814,10 +936,10 @@ entity xlfir_compiler_d53bbda3cdf8e147d1d49193e80ae47b is
     src_ce:in std_logic;
     src_clk:in std_logic
   );
-end xlfir_compiler_d53bbda3cdf8e147d1d49193e80ae47b; 
+end xlfir_compiler_7179711d24629e1bfb954cb91f8ef22a; 
 
-architecture behavior of xlfir_compiler_d53bbda3cdf8e147d1d49193e80ae47b  is
-  component ofdm_tx_hw_fir_compiler_v7_2_i4
+architecture behavior of xlfir_compiler_7179711d24629e1bfb954cb91f8ef22a  is
+  component ofdm_tx_hw_fir_compiler_v7_2_i5
     port(
       aclk:in std_logic;
       aclken:in std_logic;
@@ -835,7 +957,7 @@ begin
   m_axis_data_tdata_path0 <= m_axis_data_tdata_net(30 downto 0);
   s_axis_data_tdata_net(31 downto 16) <= s_axis_data_tdata_path1;
   s_axis_data_tdata_net(15 downto 0) <= s_axis_data_tdata_path0;
-  ofdm_tx_hw_fir_compiler_v7_2_i4_instance : ofdm_tx_hw_fir_compiler_v7_2_i4
+  ofdm_tx_hw_fir_compiler_v7_2_i5_instance : ofdm_tx_hw_fir_compiler_v7_2_i5
     port map(
       aclk=>clk,
       aclken=>ce,
