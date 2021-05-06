@@ -6,7 +6,7 @@
 <Project Version="7" Minor="49" Path="C:/GitHub/Forks/rfsoc_ofdm/boards/ip/models_1MHz/hdl_prj/ipcore/ofdm_rx_v0_3/prj_ip/prj_ip.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="cd98121e6f43453ba3de48441c97dfae"/>
+    <Option Name="Id" Val="0b7daa3447cf4dc9896bb4262f420062"/>
     <Option Name="Part" Val="xczu28dr-ffvg1517-2-e"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -91,13 +91,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../hdl/vhdl/ofdm_rx_src_OFDMRx_pkg.vhd">
+      <File Path="$PPRDIR/../hdl/vhdl/ofdm_rx_src_OFDMRx_tc.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../hdl/vhdl/ofdm_rx_src_OFDMRx_tc.vhd">
+      <File Path="$PPRDIR/../hdl/vhdl/ofdm_rx_src_OFDMRx_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
