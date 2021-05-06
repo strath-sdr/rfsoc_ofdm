@@ -100,7 +100,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">Model version
 </td>
-<td class="summaryTableSndColOddRow">1.299
+<td class="summaryTableSndColOddRow">1.303
 </td>
 </tr>
 <tr>
@@ -112,7 +112,7 @@ thead.reportTableHeader {
 <tr>
 <td class="distinctCellColor">IP core generated on
 </td>
-<td class="summaryTableSndColOddRow">06-May-2021 10:39:13
+<td class="summaryTableSndColOddRow">06-May-2021 12:02:43
 </td>
 </tr>
 <tr>
@@ -188,6 +188,30 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Rx_HW:8103')">enable_threshold</a>
+</td>
+<td class="distinctCellColor">Inport
+</td>
+<td class="distinctCellColor">uint32
+</td>
+<td class="distinctCellColor">AXI4-Lite
+</td>
+<td class="distinctCellColor">x"104"
+</td>
+</tr>
+<tr>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Rx_HW:8109')">select</a>
+</td>
+<td>Inport
+</td>
+<td>uint32
+</td>
+<td>AXI4-Lite
+</td>
+<td>x"108"
+</td>
+</tr>
+<tr>
 <td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('OFDM_Rx_HW:8004')">m_axis_tdata</a>
 </td>
 <td class="distinctCellColor">Outport
@@ -259,7 +283,7 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 </td>
 <td class="distinctCellColor">0xC
 </td>
-<td class="distinctCellColor">contains unique IP timestamp (yymmddHHMM): 2105061039
+<td class="distinctCellColor">contains unique IP timestamp (yymmddHHMM): 2105061202
 </td>
 </tr>
 <tr>
@@ -268,6 +292,22 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 <td>0x100
 </td>
 <td>data register for Inport threshold
+</td>
+</tr>
+<tr>
+<td class="distinctCellColor">enable_threshold_Data
+</td>
+<td class="distinctCellColor">0x104
+</td>
+<td class="distinctCellColor">data register for Inport enable_threshold
+</td>
+</tr>
+<tr>
+<td>select_Data
+</td>
+<td>0x108
+</td>
+<td>data register for Inport select
 </td>
 </tr>
 </tbody>
@@ -303,7 +343,7 @@ interface. To connect the external ports to the FPGA external IO pins, add FPGA 
 <br/><br/>
 The AXI4 Slave port to pipeline register ratio selected as 35 in task 3.2 for this model. The default delay to read AXI4 register is one clock cycle.
 Depending on the selected ratio and IO connected to AXI4 interface, register pipelining is introduced in the read logic of AXI4 registers.
-For your model AXI4 pipeline register ratio setting 35 is larger than all the readable AXI4 slave registers. Total readable AXI4 slave registers are 4, so no pipelining is added to the AXI4 register read back logic.
+For your model AXI4 pipeline register ratio setting 35 is larger than all the readable AXI4 slave registers. Total readable AXI4 slave registers are 6, so no pipelining is added to the AXI4 register read back logic.
 <br/><br/>
 <b>Processor/FPGA Synchronization</b>
 <br/><br/>
