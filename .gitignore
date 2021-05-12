@@ -8,12 +8,14 @@
 
 # Ignore Simulink Files
 *.autosave
+*.asv
 *.slxc
 *\.hbs
 *\.Xil
 *\hdl_prj
 *\slprj
 *\wavedata
+*\netlist
 
 # Ignore Vivado Files
 *.jou
@@ -26,4 +28,3 @@
 **/rfsoc_ofdm/rfstrath
 **/rfsoc_ofdm/rfsoc_pynq
 **/rfstrath/rfstrath
-*.asv
