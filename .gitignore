@@ -8,12 +8,14 @@
 
 # Ignore Simulink Files
 *.autosave
+*.asv
 *.slxc
 *\.hbs
 *\.Xil
 *\hdl_prj
 *\slprj
 *\wavedata
+*\netlist
 
 # Ignore Vivado Files
 *.jou
