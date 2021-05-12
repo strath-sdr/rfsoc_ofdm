@@ -26,3 +26,4 @@
 **/rfsoc_ofdm/rfstrath
 **/rfsoc_ofdm/rfsoc_pynq
 **/rfstrath/rfstrath
+*.asv
