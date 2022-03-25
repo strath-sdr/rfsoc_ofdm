@@ -53,12 +53,12 @@ This repository uses Voila to create simple web applications using Jupyter noteb
 
 ## Using the Project Files
 The following software is required to use the project files in this repository.
-- Vivado Design Suite 2020.1
+- Vivado Design Suite 2020.2
 - System Generator for DSP
 - MATLAB R2020a
 
 ### Vivado
-This project can be built with Vivado from the command line. Open Vivado 2020.1 and execute the following into the tcl console:
+This project can be built with Vivado from the command line. Open Vivado 2020.2 and execute the following into the tcl console:
 ```sh
 cd /<repository-location>/boards/<board-name>/rfsoc_ofdm/
 make project
