@@ -42,7 +42,7 @@ This project can be built with Vivado from the command line. Open Vivado 2020.1 
 ```sh
 cd /<repository-location>/boards/<board-name>/rfsoc_ofdm/
 make block_design
-make bitstream_file
+make bitstream
 ```
 
 Alternatively, you can run the entire project build by executing the following into the tcl console:
