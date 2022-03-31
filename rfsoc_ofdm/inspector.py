@@ -14,7 +14,7 @@ from .dma_timer import DmaTimer
 
 class Inspector(DefaultHierarchy):
     
-    def __init__(self, description, plotting_rate = 0.4, autoscale = False, init_data = True, sample_freq = 20e6):
+    def __init__(self, description, plotting_rate = 0.4, autoscale = False, init_data = False, sample_freq = 20e6):
         super().__init__(description)
         
         self.data_inspector_module.packetsize = 64

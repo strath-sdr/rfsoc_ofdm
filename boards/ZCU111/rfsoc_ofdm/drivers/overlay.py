@@ -36,7 +36,16 @@ class Overlay(Overlay):
           
         self.initialise_receiver()
         self.initialise_transmitter()
-        self.configure_inspectors()       
+
+        self.configure_inspectors()    
+        self.start_constellation()
+
+
+    def start_constellation(self):
+        """
+        """
+
+        self.inspectors['constellation'].get_frame()
         
         
     def configure_clocks(self, lmk_freq=122.88, lmx_freq=384.00):
@@ -74,7 +83,7 @@ class Overlay(Overlay):
         self.dac_block.MixerSettings = {
             'CoarseMixFreq'  : xrfdc.COARSE_MIX_BYPASS,
             'EventSource'    : xrfdc.EVNT_SRC_IMMEDIATE,
-            'FineMixerScale' : xrfdc.MIXER_SCALE_0P7,
+            'FineMixerScale' : xrfdc.MIXER_SCALE_1P0,
             'Freq'           : centre_freq,
             'MixerMode'      : xrfdc.MIXER_MODE_C2R,
             'MixerType'      : xrfdc.MIXER_TYPE_FINE,
