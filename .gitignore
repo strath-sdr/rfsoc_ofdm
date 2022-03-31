@@ -23,8 +23,5 @@
 *vivado.jou
 *vivado.log
 
-# Ignore ./rfstrath/rfstrath/
-**/rfsoc_ofdm/rfsoc_ofdm
-**/rfsoc_ofdm/rfstrath
-**/rfsoc_ofdm/rfsoc_pynq
-**/rfstrath/rfstrath
+# Ignore the block design
+**/block_design

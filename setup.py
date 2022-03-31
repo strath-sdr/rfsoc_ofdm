@@ -65,9 +65,9 @@ copy_notebooks()
 
 setup(
     name=package_name,
-    version='0.2.2',
+    version='0.3.0',
     install_requires=[
-        'pynq>=2.6',
+        'pynq>=2.7',
     ],
     url='https://github.com/strath-sdr/rfsoc_ofdm',
     license='BSD 3-Clause License',

@@ -1,0 +1,962 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <spirit:vendor>strathsdr.org</spirit:vendor>
+  <spirit:library>PYNQ-SDR</spirit:library>
+  <spirit:name>ofdm_interpolator</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>S_AXIS</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>s_axis_tdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>s_axis_tvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>s_axis_tready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TLAST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>s_axis_tlast</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>WIZ_DATA_WIDTH</spirit:name>
+          <spirit:value spirit:format="long" spirit:id="BUSIFPARAM_VALUE.S_AXIS.WIZ_DATA_WIDTH" spirit:choiceRef="choice_list_6fc15197">32</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>M_AXIS</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_tdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_tvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_tready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TLAST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_axis_tlast</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>WIZ_DATA_WIDTH</spirit:name>
+          <spirit:value spirit:format="long" spirit:id="BUSIFPARAM_VALUE.M_AXIS.WIZ_DATA_WIDTH" spirit:choiceRef="choice_list_6fc15197">32</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>aresetn</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>aresetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>POLARITY</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.ARESETN.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>aclk</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="signal" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>aclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+      <spirit:parameters>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_RESET</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.ACLK.ASSOCIATED_RESET">aresetn</spirit:value>
+        </spirit:parameter>
+        <spirit:parameter>
+          <spirit:name>ASSOCIATED_BUSIF</spirit:name>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.ACLK.ASSOCIATED_BUSIF">S_AXIS:M_AXIS:M_SYMBOL_AXIS:M_OBSERVE_AXIS</spirit:value>
+        </spirit:parameter>
+      </spirit:parameters>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>M_SYMBOL_AXIS</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_sym_axis_tdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_sym_axis_tvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>M_OBSERVE_AXIS</spirit:name>
+      <spirit:busType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="xilinx.com" spirit:library="interface" spirit:name="axis_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_obs_axis_tdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TVALID</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>m_obs_axis_tvalid</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>xilinx_vhdlsynthesis</spirit:name>
+        <spirit:displayName>VHDL Synthesis</spirit:displayName>
+        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:synthesis</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>ofdm_interpolator_v1_0</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlsynthesis_xilinx_com_ip_fir_compiler_7_2__ref_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlsynthesis_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>06f8b3af</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_vhdlbehavioralsimulation</spirit:name>
+        <spirit:displayName>VHDL Simulation</spirit:displayName>
+        <spirit:envIdentifier>vhdlSource:vivado.xilinx.com:simulation</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>ofdm_interpolator_v1_0</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlbehavioralsimulation_xilinx_com_ip_fir_compiler_7_2__ref_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>06f8b3af</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>xilinx_xpgui</spirit:name>
+        <spirit:displayName>UI Layout</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:xgui.ui</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>xilinx_xpgui_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>f64a5dae</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>bd_tcl</spirit:name>
+        <spirit:displayName>Block Diagram</spirit:displayName>
+        <spirit:envIdentifier>:vivado.xilinx.com:block.diagram</spirit:envIdentifier>
+        <spirit:fileSetRef>
+          <spirit:localName>bd_tcl_view_fileset</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:parameters>
+          <spirit:parameter>
+            <spirit:name>viewChecksum</spirit:name>
+            <spirit:value>16328387</spirit:value>
+          </spirit:parameter>
+        </spirit:parameters>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>aclk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>aresetn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>s_axis_tdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>s_axis_tready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>s_axis_tvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>s_axis_tlast</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_axis_tvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_axis_tlast</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_axis_tdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">63</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_axis_tready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_sym_axis_tvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_sym_axis_tdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_obs_axis_tvalid</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>m_obs_axis_tdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:right spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:wireTypeDefs>
+            <spirit:wireTypeDef>
+              <spirit:typeName>std_logic_vector</spirit:typeName>
+              <spirit:viewNameRef>xilinx_vhdlsynthesis</spirit:viewNameRef>
+              <spirit:viewNameRef>xilinx_vhdlbehavioralsimulation</spirit:viewNameRef>
+            </spirit:wireTypeDef>
+          </spirit:wireTypeDefs>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+  <spirit:choices>
+    <spirit:choice>
+      <spirit:name>choice_list_6fc15197</spirit:name>
+      <spirit:enumeration>32</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_list_9d8b0d81</spirit:name>
+      <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
+      <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
+    </spirit:choice>
+  </spirit:choices>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlsynthesis_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_3/fir_interpolator_stage_3.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_3_inst/fir_interpolator_stage_3</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_2/fir_interpolator_stage_2.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_2_inst/fir_interpolator_stage_2</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_1/fir_interpolator_stage_1.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_1_inst/fir_interpolator_stage_1</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_0/fir_interpolator_stage_0.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_0_inst/fir_interpolator_stage_0</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/ofdm_interpolator_v1_0.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_0eeef5f6</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlsynthesis_xilinx_com_ip_fir_compiler_7_2__ref_view_fileset</spirit:name>
+      <spirit:vendorExtensions>
+        <xilinx:subCoreRef>
+          <xilinx:componentRef xsi:type="xilinx:componentRefType" xilinx:vendor="xilinx.com" xilinx:library="ip" xilinx:name="fir_compiler" xilinx:version="7.2">
+            <xilinx:mode xilinx:name="create_mode"/>
+          </xilinx:componentRef>
+        </xilinx:subCoreRef>
+      </spirit:vendorExtensions>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlbehavioralsimulation_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_3/fir_interpolator_stage_3.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_3_inst/fir_interpolator_stage_3</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_2/fir_interpolator_stage_2.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_2_inst/fir_interpolator_stage_2</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_1/fir_interpolator_stage_1.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_1_inst/fir_interpolator_stage_1</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/fir_interpolator_stage_0/fir_interpolator_stage_0.xci</spirit:name>
+        <spirit:userFileType>xci</spirit:userFileType>
+        <spirit:userFileType>CELL_NAME_fir_stage_0_inst/fir_interpolator_stage_0</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdl/ofdm_interpolator_v1_0.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_vhdlbehavioralsimulation_xilinx_com_ip_fir_compiler_7_2__ref_view_fileset</spirit:name>
+      <spirit:vendorExtensions>
+        <xilinx:subCoreRef>
+          <xilinx:componentRef xilinx:vendor="xilinx.com" xilinx:library="ip" xilinx:name="fir_compiler" xilinx:version="7.2">
+            <xilinx:mode xilinx:name="create_mode"/>
+          </xilinx:componentRef>
+        </xilinx:subCoreRef>
+      </spirit:vendorExtensions>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>xgui/ofdm_interpolator_v1_0.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+        <spirit:userFileType>CHECKSUM_f64a5dae</spirit:userFileType>
+        <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>bd_tcl_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>bd/bd.tcl</spirit:name>
+        <spirit:fileType>tclSource</spirit:fileType>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:description>Interpolate 20Msps OFDM symbols to 480Msps</spirit:description>
+  <spirit:parameters>
+    <spirit:parameter>
+      <spirit:name>Component_Name</spirit:name>
+      <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">ofdm_interpolator_v1_0</spirit:value>
+    </spirit:parameter>
+  </spirit:parameters>
+  <spirit:vendorExtensions>
+    <xilinx:coreExtensions>
+      <xilinx:supportedFamilies>
+        <xilinx:family xilinx:lifeCycle="Pre-Production">zynquplus</xilinx:family>
+      </xilinx:supportedFamilies>
+      <xilinx:taxonomies>
+        <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
+      </xilinx:taxonomies>
+      <xilinx:displayName>OFDM Interpolator</xilinx:displayName>
+      <xilinx:vendorDisplayName>StrathSDR</xilinx:vendorDisplayName>
+      <xilinx:vendorURL>http://strathsdr.org/</xilinx:vendorURL>
+      <xilinx:coreRevision>9</xilinx:coreRevision>
+      <xilinx:upgrades>
+        <xilinx:canUpgradeFrom>xilinx.com:user:ofdm_interpolator:1.0</xilinx:canUpgradeFrom>
+      </xilinx:upgrades>
+      <xilinx:coreCreationDateTime>2022-03-30T14:10:22Z</xilinx:coreCreationDateTime>
+      <xilinx:tags>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@600d1d44_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4942b458_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f3e1c7a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ad5a09e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5943e67a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b04103e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2dcbbf5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@292a0862_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b9f851e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20f4a155_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@138dc73a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@401dc4a0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b11359c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e3e7302_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cb4c8d2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f9ea013_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e1f3bc6_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12196a1d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c95b0b4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58add3dd_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@12e03729_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@583dd785_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33e1c10e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55c08834_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4225b5cb_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@234573e4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4940e5ae_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@494d3b86_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2539eaf4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a0ed905_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e9f6d25_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e765ccb_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26917456_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59bc2b29_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28269aa5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@537ffd8b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39026832_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@269c5de0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23af37d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b3a642c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1683cf31_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@265054fd_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4936b697_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2efeb8d5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@714f1160_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71e4a251_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23a89e9a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68b9617d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2611b18e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e7301f8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@522f86d6_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5785124c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e7ce5b1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c5c58ce_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32d665a9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60d18146_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b080820_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@66e8dc48_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@491ba7bb_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16c46185_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d7956c4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2eabbfd0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5bfc0d55_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1872b28_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9c353a6_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/RFSoC2x2/rfsoc_ofdm/ip_repo/ofdm_interpolator_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1fd9fe26_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49737f08_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53523a72_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77b76218_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@478b3044_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b0cec33_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f6fc53_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@79392a79_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6333e7af_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d70f43f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25abe321_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@bc98c20_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3635bd6a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70ecdc74_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b248451_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c42d187_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a5cf016_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b3323b3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@370efd92_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76a1930f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e7bc2ac_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1988c39_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b6ef845_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6437dc94_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f9585a4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c2c0cb7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2527cf1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@432cdc21_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5bc9a596_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d32e0df_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5274bf81_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@180f21b2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b0e2ca2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3fd561b6_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@241c3279_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47ee87e7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@35d0ad9e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50329b8e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50224b15_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a329d13_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e3866a9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15ac2cb2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ee11298_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b50cd6d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c99326c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7401d22b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44628e28_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29d49f4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@35150c83_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2bb5f002_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e94eef3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1d3b6d2f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@56cee0e7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5785ed41_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a5148f0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@240c259d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59742b8f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74b22cab_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@509518ca_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a966182_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@278856cf_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59ac18a3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bbccf9d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@87046cf_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ccb936d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ad504a5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20a85fa0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10709fa8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ec91361_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@526ce384_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c9d92b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44838c9d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@577a9de2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b35fbbd_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5499470a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@75f9ac17_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2960bed9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2532ac7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@65b501ae_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2785e9a4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7462a3f5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2182d53d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a7111ad_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4b2cded5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@230ab9d8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@fd31536_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28823c86_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32d67829_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@305b01cb_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@52b41db_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76e5fec7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@314b6a35_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55e50ece_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1480be27_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@bc845a5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@312eb77a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4183248d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ba55896_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57a125_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@75e4abfa_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ddb6d2a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36139044_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77b923b6_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e960f6e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2df1b275_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71b7b921_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2de9642e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@220de365_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1217ff23_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@351a1983_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@db724f6_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1cb82628_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3122460a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58b056fa_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d087f4a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@768579bb_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@36a41205_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11881c94_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2ef8c722_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11fa77ba_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e88a2b2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@42da0ae7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28b493cc_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24c84ec1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63efb2e4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2fc6e271_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e557c4f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@154956c2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27247561_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bb8a56c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a790501_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5eaa1f20_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d82090f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@162fb4f8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d9547ff_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ab219ca_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4944d3b4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6fdb2d69_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46ab34ce_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47148852_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73ba4c51_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@163cdad_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@352aa1e8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@253c0c38_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@375bd811_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e38fda2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@491c9a23_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e5fead1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cea903e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b04d651_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71b38406_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4bfad568_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@47b3adf9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1504bb2c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ca0beb3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d4ed570_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b853fde_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@44397d0b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39486f71_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67a3a36a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@24e054a0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7de48437_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@50a37e9f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d8becbe_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2031fbe2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8f6d964_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70699c91_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43a05499_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f0491c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3fb00e69_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e7430ba_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d545225_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@455682f8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c325a0b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@af7233a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6fb57de9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1089a3e3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ba3ca5f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4df0a120_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ebe125b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1af6912c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@30246832_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67e6587_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2763cea7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ab2b170_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@251b0010_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@9f9af87_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6af83ec8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3f55d0c4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@378ef4d7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6ba5ab3c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c6881c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43ca3d6e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@366d661b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e5a10d1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@554d0ebe_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@fbb59f3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45a494a1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@593739a9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2db6e5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3fa00b87_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73e11d49_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@636af0c7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e65de54_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@54b7fe11_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d7653c9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32569295_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b3b17c0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a8b433c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4958c470_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@497fa936_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7bfc798c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@34b3559f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@453b3436_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10be5b69_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b9585bf_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@565cf66f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4fb66622_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1219b4d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@222b1e96_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2aba817c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77607140_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ff88656_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3eccc699_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3dd5fe3e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a33edae_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63f09a83_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c705713_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c1e5f36_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4905e6bb_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c7bc989_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e63f5e8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f8ef1e1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@33f50296_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@395e195f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f43f5f0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29040ef4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@213cf1c5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e670b40_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2a2a07c5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c4c4fc9_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d2f6962_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38537fb3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b727f63_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@cd685b0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45713105_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67002664_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77894233_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3dd9d17b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@14da29d8_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f2cf598_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6155c01_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@65ea8629_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@70496ef2_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f39fb82_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@645315b3_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4eb04c06_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6893aa7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21d96c22_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b44e0e1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1a8d1c58_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76bf0af7_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c9d9dd4_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e7d533e_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6546e7ba_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49e24e3b_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3bb56074_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3adc9ec0_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3fd4ea69_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74d1c4ea_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e56679c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22ee9658_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40545052_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8c96efa_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@55fd019d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26a9d288_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72f8ea66_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4911fe7a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5609eee5_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ccb197f_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ee5a06a_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2abbd83d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ed33bea_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@23f4b2df_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@89a560c_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d1d430d_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26faedcf_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@63689141_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@a4504bc_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@711e5559_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b4a98e6_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4dd926e1_ARCHIVE_LOCATION">c:/GitHub/rfsoc_ofdm_new/boards/ip/iprepo/ofdm_interpolator</xilinx:tag>
+      </xilinx:tags>
+    </xilinx:coreExtensions>
+    <xilinx:packagingInfo>
+      <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="f3d71c2e"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="fb02269b"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="af5239bc"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="b6876b7b"/>
+    </xilinx:packagingInfo>
+  </spirit:vendorExtensions>
+</spirit:component>
