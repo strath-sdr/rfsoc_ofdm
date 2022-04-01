@@ -10,7 +10,7 @@ pip_name = 'rfsoc-ofdm'
 board = os.environ['BOARD']
 repo_board_folder = f'boards/{board}/{package_name}'
 board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
-board_project_dir = os.path.join(board_notebooks_dir, 'ofdm-demonstrator')
+board_project_dir = os.path.join(board_notebooks_dir, 'rfsoc-studio', 'ofdm-demonstrator')
 data_files = []
 
 # check whether board is supported
@@ -65,7 +65,7 @@ copy_notebooks()
 
 setup(
     name=package_name,
-    version='0.3.1',
+    version='0.3.2',
     install_requires=[
         'pynq>=2.7',
     ],
