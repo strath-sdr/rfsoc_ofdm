@@ -12,7 +12,12 @@
 </table>
 
 # RFSoC OFDM Transceiver
-This repository contains an RFSoC demonstration of an Orthogonal Frequency Division Multiplexing (OFDM) transceiver. The OFDM system is only compatible with [PYNQ images v2.7 and greater](https://github.com/Xilinx/PYNQ/releases) for the [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html), the [RFSoC2x2](http://rfsoc-pynq.io/), and the [RFSoC4x2](http://rfsoc-pynq.io/).
+This repository contains an RFSoC demonstration of an Orthogonal Frequency Division Multiplexing (OFDM) transceiver. The OFDM system is only compatible with [PYNQ images v2.7 and greater](https://github.com/Xilinx/PYNQ/releases) for the following RFSoC development boards:
+* [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html),
+* [ZCU216](https://www.xilinx.com/products/boards-and-kits/zcu216.html),
+* [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html),
+* [RFSoC4x2](http://rfsoc-pynq.io/), 
+* [RFSoC2x2](http://rfsoc-pynq.io/).
 
 <p align="center">
   <img src="demonstration.gif"/>
@@ -20,7 +25,7 @@ This repository contains an RFSoC demonstration of an Orthogonal Frequency Divis
 
 ## Quick Start
 Follow the instructions below to install the OFDM demonstrator on your development board. **You will need to give your board access to the internet**.
-* Power on your RFSoC development board with an SD Card containing a fresh PYNQ v2.7 image.
+* Power on your RFSoC development board with an SD Card containing a fresh PYNQ v2.7 image or greater.
 * Navigate to Jupyter Labs by opening a browser (preferably Chrome) and connecting to `http://<board_ip_address>:9090/lab`.
 * We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
@@ -37,10 +42,10 @@ Follow the instructions below to install the OFDM demonstrator on your developme
 * Now execute the following command in the terminal:
 
 ```sh
-pip3 install git+https://github.com/strath-sdr/rfsoc_ofdm
+pip3 install https://github.com/strath-sdr/rfsoc_ofdm/releases/download/v0.3.4/rfsoc_ofdm.tar.gz
 ```
 
-The notebook should now be available in the `rfsoc-studio/ofdm-demonstrator` folder in your Jupyter Workspace.
+The notebook should now be available in the `rfsoc_ofdm` folder in your Jupyter Workspace.
 It is important that you use the Chrome web browser if possible as rendering performance is important.
 
 ## Using the Project Files
