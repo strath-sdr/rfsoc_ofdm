@@ -57,7 +57,7 @@ class package_installer():
               package_data={'': self.generate_pkg_dirs()},
               description=self.description)
 
-package_installer(name = "rfsoc_radio",
+package_installer(name = "rfsoc_ofdm",
                   version = "0.3.4",
                   description  = "PYNQ example of an OFDM transmitter and receiver on RFSoC.",
                   author = "Lewis Davin McLaughlin",
