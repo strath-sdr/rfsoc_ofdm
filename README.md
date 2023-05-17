@@ -43,6 +43,7 @@ Follow the instructions below to install the OFDM demonstrator on your developme
 
 ```sh
 pip3 install https://github.com/strath-sdr/rfsoc_ofdm/releases/download/v0.3.4/rfsoc_ofdm.tar.gz
+python -m rfsoc_ofdm install
 ```
 
 The notebook should now be available in the `rfsoc_ofdm` folder in your Jupyter Workspace.
