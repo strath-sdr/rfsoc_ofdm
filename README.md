@@ -12,7 +12,7 @@
 </table>
 
 # RFSoC OFDM Transceiver
-This repository contains an RFSoC demonstration of an Orthogonal Frequency Division Multiplexing (OFDM) transceiver. The OFDM system is only compatible with [PYNQ images v2.7 and greater](https://github.com/Xilinx/PYNQ/releases) for the following RFSoC development boards:
+This repository contains an RFSoC demonstration of an Orthogonal Frequency Division Multiplexing (OFDM) transceiver. The OFDM system is only compatible with [PYNQ images v2.7](https://github.com/Xilinx/PYNQ/releases) and greater for the following RFSoC development boards:
 * [ZCU208](https://www.xilinx.com/products/boards-and-kits/zcu208.html),
 * [ZCU216](https://www.xilinx.com/products/boards-and-kits/zcu216.html),
 * [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html),
