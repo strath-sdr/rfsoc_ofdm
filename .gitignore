@@ -25,3 +25,4 @@
 
 # Ignore the block design
 **/block_design
+**/bitstream
