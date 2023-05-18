@@ -26,3 +26,4 @@
 # Ignore the block design
 **/block_design
 **/bitstream
+rfsoc_ofdm.tar.gz
