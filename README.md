@@ -42,7 +42,7 @@ Follow the instructions below to install the OFDM demonstrator on your developme
 * Now execute the following command in the terminal:
 
 ```sh
-pip3 install https://github.com/strath-sdr/rfsoc_ofdm/releases/download/v0.3.4/rfsoc_ofdm.tar.gz
+pip3 install https://github.com/strath-sdr/rfsoc_ofdm/releases/download/v0.3.5/rfsoc_ofdm.tar.gz
 python -m rfsoc_ofdm install
 ```
 

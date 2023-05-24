@@ -58,7 +58,7 @@ class package_installer():
               description=self.description)
 
 package_installer(name = "rfsoc_ofdm",
-                  version = "0.3.4",
+                  version = "0.3.5",
                   description  = "PYNQ example of an OFDM transmitter and receiver on RFSoC.",
                   author = "Lewis Davin McLaughlin",
                   email = "lewis.mclaughlin@strath.ac.uk",
