@@ -8,6 +8,7 @@ import xrfclk
 # Import overlay specific drivers
 from rfsoc_ofdm import inspector
 from rfsoc_ofdm import ofdm
+from rfsoc_ofdm import clocks
 
 class Overlay(Overlay):
     """
@@ -16,8 +17,6 @@ class Overlay(Overlay):
     def __init__(self, bitfile_name=None, init_rf_clks=True, **kwargs):
         """
         """
-        GEN3 = ['RFSoC4x2', 'ZCU208', 'ZCU216']
-        GEN1 = ['RFSoC2x2', 'ZCU111']
 
         # Generate default bitfile name
         if bitfile_name is None:
@@ -29,12 +28,6 @@ class Overlay(Overlay):
 
         # Determine board and set PLL appropriately
         board = os.environ['BOARD']
-        if board in GEN3:
-            lmk_clk = 245.76
-        elif board in GEN1:
-            lmk_clk = 122.88
-        else:
-            raise RuntimeError('Platform not supported.') # shouldn't get here
         
         # Extract friendly dataconverter names
         if board == 'RFSoC4x2':
@@ -60,7 +53,9 @@ class Overlay(Overlay):
         else:
             raise RuntimeError('Unknown error occurred.') # shouldn't get here
         
-        self.configure_clocks(lmk_freq=lmk_clk)
+        # Start up LMX clock
+        if init_rf_clks:
+            clocks.set_custom_lmclks()
 
         if board == 'ZCU216':
             fs = 1920.00
@@ -86,13 +81,6 @@ class Overlay(Overlay):
         """
 
         self.inspectors['constellation'].get_frame()
-        
-        
-    def configure_clocks(self, lmk_freq=122.88, lmx_freq=384.00):
-        """
-        """
-        
-        xrfclk.set_ref_clks(lmk_freq=lmk_freq, lmx_freq=lmx_freq)
         
         
     def configure_adcs(self, pll_freq=384.00, sample_freq=3840.00, nyquist_zone=1, centre_freq=-600):
