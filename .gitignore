@@ -27,3 +27,7 @@
 **/block_design
 **/bitstream
 rfsoc_ofdm.tar.gz
+
+# Local CI output
+.ci-artifacts/
+__pycache__/
