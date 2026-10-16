@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2024.1
+set scripts_vivado_version 2025.2
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -264,11 +264,35 @@ proc create_hier_cell_InspectorTransmitter { parentCell nameHier } {
   connect_bd_intf_net -intf_net s_axi_interconnect_M02_AXI [get_bd_intf_pins axis_switch/S_AXI_CTRL] [get_bd_intf_pins s_axi_interconnect/M02_AXI]
 
   # Create port connections
-  connect_bd_net -net M03_ACLK_1 [get_bd_pins M03_ACLK] [get_bd_pins s_axi_interconnect/M03_ACLK]
-  connect_bd_net -net M03_ARESETN_1 [get_bd_pins M03_ARESETN] [get_bd_pins s_axi_interconnect/M03_ARESETN]
-  connect_bd_net -net axi_dma_s2mm_introut1 [get_bd_pins axi_dma/s2mm_introut] [get_bd_pins irq]
-  connect_bd_net -net proc_sys_reset_clk_dac1_peripheral_aresetn [get_bd_pins aresetn] [get_bd_pins data_inspector_module/aresetn] [get_bd_pins axi_dma/axi_resetn] [get_bd_pins axis_switch/aresetn] [get_bd_pins axis_switch/s_axi_ctrl_aresetn] [get_bd_pins s_axi_interconnect/ARESETN] [get_bd_pins s_axi_interconnect/S00_ARESETN] [get_bd_pins s_axi_interconnect/M00_ARESETN] [get_bd_pins s_axi_interconnect/M01_ARESETN] [get_bd_pins s_axi_interconnect/M02_ARESETN] [get_bd_pins s_axi_interconnect/M04_ARESETN]
-  connect_bd_net -net usp_rf_data_converter_0_clk_dac1 [get_bd_pins aclk] [get_bd_pins data_inspector_module/aclk] [get_bd_pins axi_dma/s_axi_lite_aclk] [get_bd_pins axi_dma/m_axi_s2mm_aclk] [get_bd_pins axis_switch/aclk] [get_bd_pins axis_switch/s_axi_ctrl_aclk] [get_bd_pins s_axi_interconnect/ACLK] [get_bd_pins s_axi_interconnect/S00_ACLK] [get_bd_pins s_axi_interconnect/M00_ACLK] [get_bd_pins s_axi_interconnect/M01_ACLK] [get_bd_pins s_axi_interconnect/M02_ACLK] [get_bd_pins s_axi_interconnect/M04_ACLK]
+  connect_bd_net -net M03_ACLK_1  [get_bd_pins M03_ACLK] \
+  [get_bd_pins s_axi_interconnect/M03_ACLK]
+  connect_bd_net -net M03_ARESETN_1  [get_bd_pins M03_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M03_ARESETN]
+  connect_bd_net -net axi_dma_s2mm_introut1  [get_bd_pins axi_dma/s2mm_introut] \
+  [get_bd_pins irq]
+  connect_bd_net -net proc_sys_reset_clk_dac1_peripheral_aresetn  [get_bd_pins aresetn] \
+  [get_bd_pins data_inspector_module/aresetn] \
+  [get_bd_pins axi_dma/axi_resetn] \
+  [get_bd_pins axis_switch/aresetn] \
+  [get_bd_pins axis_switch/s_axi_ctrl_aresetn] \
+  [get_bd_pins s_axi_interconnect/ARESETN] \
+  [get_bd_pins s_axi_interconnect/S00_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M00_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M01_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M02_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M04_ARESETN]
+  connect_bd_net -net usp_rf_data_converter_0_clk_dac1  [get_bd_pins aclk] \
+  [get_bd_pins data_inspector_module/aclk] \
+  [get_bd_pins axi_dma/s_axi_lite_aclk] \
+  [get_bd_pins axi_dma/m_axi_s2mm_aclk] \
+  [get_bd_pins axis_switch/aclk] \
+  [get_bd_pins axis_switch/s_axi_ctrl_aclk] \
+  [get_bd_pins s_axi_interconnect/ACLK] \
+  [get_bd_pins s_axi_interconnect/S00_ACLK] \
+  [get_bd_pins s_axi_interconnect/M00_ACLK] \
+  [get_bd_pins s_axi_interconnect/M01_ACLK] \
+  [get_bd_pins s_axi_interconnect/M02_ACLK] \
+  [get_bd_pins s_axi_interconnect/M04_ACLK]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -359,9 +383,29 @@ proc create_hier_cell_InspectorReceiver { parentCell nameHier } {
   connect_bd_intf_net -intf_net s_axi_interconnect_M02_AXI [get_bd_intf_pins axis_switch/S_AXI_CTRL] [get_bd_intf_pins s_axi_interconnect/M02_AXI]
 
   # Create port connections
-  connect_bd_net -net axi_dma_s2mm_introut1 [get_bd_pins axi_dma/s2mm_introut] [get_bd_pins irq]
-  connect_bd_net -net proc_sys_reset_clk_dac1_peripheral_aresetn [get_bd_pins aresetn] [get_bd_pins data_inspector_module/aresetn] [get_bd_pins axi_dma/axi_resetn] [get_bd_pins axis_switch/aresetn] [get_bd_pins axis_switch/s_axi_ctrl_aresetn] [get_bd_pins s_axi_interconnect/ARESETN] [get_bd_pins s_axi_interconnect/S00_ARESETN] [get_bd_pins s_axi_interconnect/M00_ARESETN] [get_bd_pins s_axi_interconnect/M01_ARESETN] [get_bd_pins s_axi_interconnect/M02_ARESETN]
-  connect_bd_net -net usp_rf_data_converter_0_clk_dac1 [get_bd_pins aclk] [get_bd_pins data_inspector_module/aclk] [get_bd_pins axi_dma/s_axi_lite_aclk] [get_bd_pins axi_dma/m_axi_s2mm_aclk] [get_bd_pins axis_switch/aclk] [get_bd_pins axis_switch/s_axi_ctrl_aclk] [get_bd_pins s_axi_interconnect/ACLK] [get_bd_pins s_axi_interconnect/S00_ACLK] [get_bd_pins s_axi_interconnect/M00_ACLK] [get_bd_pins s_axi_interconnect/M01_ACLK] [get_bd_pins s_axi_interconnect/M02_ACLK]
+  connect_bd_net -net axi_dma_s2mm_introut1  [get_bd_pins axi_dma/s2mm_introut] \
+  [get_bd_pins irq]
+  connect_bd_net -net proc_sys_reset_clk_dac1_peripheral_aresetn  [get_bd_pins aresetn] \
+  [get_bd_pins data_inspector_module/aresetn] \
+  [get_bd_pins axi_dma/axi_resetn] \
+  [get_bd_pins axis_switch/aresetn] \
+  [get_bd_pins axis_switch/s_axi_ctrl_aresetn] \
+  [get_bd_pins s_axi_interconnect/ARESETN] \
+  [get_bd_pins s_axi_interconnect/S00_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M00_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M01_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M02_ARESETN]
+  connect_bd_net -net usp_rf_data_converter_0_clk_dac1  [get_bd_pins aclk] \
+  [get_bd_pins data_inspector_module/aclk] \
+  [get_bd_pins axi_dma/s_axi_lite_aclk] \
+  [get_bd_pins axi_dma/m_axi_s2mm_aclk] \
+  [get_bd_pins axis_switch/aclk] \
+  [get_bd_pins axis_switch/s_axi_ctrl_aclk] \
+  [get_bd_pins s_axi_interconnect/ACLK] \
+  [get_bd_pins s_axi_interconnect/S00_ACLK] \
+  [get_bd_pins s_axi_interconnect/M00_ACLK] \
+  [get_bd_pins s_axi_interconnect/M01_ACLK] \
+  [get_bd_pins s_axi_interconnect/M02_ACLK]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -440,9 +484,23 @@ proc create_hier_cell_InspectorConstellation { parentCell nameHier } {
   connect_bd_intf_net -intf_net s_axi_interconnect_M01_AXI [get_bd_intf_pins data_inspector_module/S_AXI_Lite] [get_bd_intf_pins s_axi_interconnect/M01_AXI]
 
   # Create port connections
-  connect_bd_net -net axi_dma_s2mm_introut1 [get_bd_pins axi_dma/s2mm_introut] [get_bd_pins irq]
-  connect_bd_net -net proc_sys_reset_clk_dac1_peripheral_aresetn [get_bd_pins aresetn] [get_bd_pins data_inspector_module/aresetn] [get_bd_pins axi_dma/axi_resetn] [get_bd_pins s_axi_interconnect/ARESETN] [get_bd_pins s_axi_interconnect/S00_ARESETN] [get_bd_pins s_axi_interconnect/M00_ARESETN] [get_bd_pins s_axi_interconnect/M01_ARESETN]
-  connect_bd_net -net usp_rf_data_converter_0_clk_dac1 [get_bd_pins aclk] [get_bd_pins data_inspector_module/aclk] [get_bd_pins axi_dma/s_axi_lite_aclk] [get_bd_pins axi_dma/m_axi_s2mm_aclk] [get_bd_pins s_axi_interconnect/ACLK] [get_bd_pins s_axi_interconnect/S00_ACLK] [get_bd_pins s_axi_interconnect/M00_ACLK] [get_bd_pins s_axi_interconnect/M01_ACLK]
+  connect_bd_net -net axi_dma_s2mm_introut1  [get_bd_pins axi_dma/s2mm_introut] \
+  [get_bd_pins irq]
+  connect_bd_net -net proc_sys_reset_clk_dac1_peripheral_aresetn  [get_bd_pins aresetn] \
+  [get_bd_pins data_inspector_module/aresetn] \
+  [get_bd_pins axi_dma/axi_resetn] \
+  [get_bd_pins s_axi_interconnect/ARESETN] \
+  [get_bd_pins s_axi_interconnect/S00_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M00_ARESETN] \
+  [get_bd_pins s_axi_interconnect/M01_ARESETN]
+  connect_bd_net -net usp_rf_data_converter_0_clk_dac1  [get_bd_pins aclk] \
+  [get_bd_pins data_inspector_module/aclk] \
+  [get_bd_pins axi_dma/s_axi_lite_aclk] \
+  [get_bd_pins axi_dma/m_axi_s2mm_aclk] \
+  [get_bd_pins s_axi_interconnect/ACLK] \
+  [get_bd_pins s_axi_interconnect/S00_ACLK] \
+  [get_bd_pins s_axi_interconnect/M00_ACLK] \
+  [get_bd_pins s_axi_interconnect/M01_ACLK]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -627,7 +685,6 @@ proc create_root_design { parentCell } {
     CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__ACT_FREQMHZ {249.999954} \
     CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__FREQMHZ {250} \
     CONFIG.PSU__CRF_APB__DBG_FPD_CTRL__SRCSEL {IOPLL} \
-    CONFIG.PSU__CRF_APB__DBG_TRACE_CTRL__FREQMHZ {250} \
     CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__ACT_FREQMHZ {249.999954} \
     CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__FREQMHZ {250} \
     CONFIG.PSU__CRF_APB__DBG_TSTMP_CTRL__SRCSEL {IOPLL} \
@@ -802,12 +859,12 @@ proc create_root_design { parentCell } {
     CONFIG.PSU__PL_CLK0_BUF {TRUE} \
     CONFIG.PSU__PMU__PERIPHERAL__ENABLE {0} \
     CONFIG.PSU__PRESET_APPLIED {1} \
-    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware |  SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU\
-Firmware |  SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware\
-|  SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware\
-|  SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem}\
-\
+    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write;\
+subsystemId:Secure Subsystem} \
     CONFIG.PSU__PROTECTION__MASTERS {USB1:NonSecure;1|USB0:NonSecure;1|S_AXI_LPD:NA;0|S_AXI_HPC1_FPD:NA;0|S_AXI_HPC0_FPD:NA;0|S_AXI_HP3_FPD:NA;0|S_AXI_HP2_FPD:NA;1|S_AXI_HP1_FPD:NA;0|S_AXI_HP0_FPD:NA;1|S_AXI_ACP:NA;0|S_AXI_ACE:NA;0|SD1:NonSecure;0|SD0:NonSecure;1|SATA1:NonSecure;0|SATA0:NonSecure;0|RPU1:Secure;1|RPU0:Secure;1|QSPI:NonSecure;0|PMU:NA;1|PCIe:NonSecure;0|NAND:NonSecure;0|LDMA:NonSecure;1|GPU:NonSecure;1|GEM3:NonSecure;0|GEM2:NonSecure;0|GEM1:NonSecure;1|GEM0:NonSecure;0|FDMA:NonSecure;1|DP:NonSecure;1|DAP:NA;1|Coresight:NA;1|CSU:NA;1|APU:NA;1}\
 \
     CONFIG.PSU__PROTECTION__SLAVES {LPD;USB3_1_XHCI;FE300000;FE3FFFFF;1|LPD;USB3_1;FF9E0000;FF9EFFFF;1|LPD;USB3_0_XHCI;FE200000;FE2FFFFF;1|LPD;USB3_0;FF9D0000;FF9DFFFF;1|LPD;UART1;FF010000;FF01FFFF;1|LPD;UART0;FF000000;FF00FFFF;0|LPD;TTC3;FF140000;FF14FFFF;0|LPD;TTC2;FF130000;FF13FFFF;0|LPD;TTC1;FF120000;FF12FFFF;0|LPD;TTC0;FF110000;FF11FFFF;0|FPD;SWDT1;FD4D0000;FD4DFFFF;0|LPD;SWDT0;FF150000;FF15FFFF;0|LPD;SPI1;FF050000;FF05FFFF;1|LPD;SPI0;FF040000;FF04FFFF;1|FPD;SMMU_REG;FD5F0000;FD5FFFFF;1|FPD;SMMU;FD800000;FDFFFFFF;1|FPD;SIOU;FD3D0000;FD3DFFFF;1|FPD;SERDES;FD400000;FD47FFFF;1|LPD;SD1;FF170000;FF17FFFF;0|LPD;SD0;FF160000;FF16FFFF;1|FPD;SATA;FD0C0000;FD0CFFFF;0|LPD;RTC;FFA60000;FFA6FFFF;1|LPD;RSA_CORE;FFCE0000;FFCEFFFF;1|LPD;RPU;FF9A0000;FF9AFFFF;1|LPD;R5_TCM_RAM_GLOBAL;FFE00000;FFE3FFFF;1|LPD;R5_1_Instruction_Cache;FFEC0000;FFECFFFF;1|LPD;R5_1_Data_Cache;FFED0000;FFEDFFFF;1|LPD;R5_1_BTCM_GLOBAL;FFEB0000;FFEBFFFF;1|LPD;R5_1_ATCM_GLOBAL;FFE90000;FFE9FFFF;1|LPD;R5_0_Instruction_Cache;FFE40000;FFE4FFFF;1|LPD;R5_0_Data_Cache;FFE50000;FFE5FFFF;1|LPD;R5_0_BTCM_GLOBAL;FFE20000;FFE2FFFF;1|LPD;R5_0_ATCM_GLOBAL;FFE00000;FFE0FFFF;1|LPD;QSPI_Linear_Address;C0000000;DFFFFFFF;1|LPD;QSPI;FF0F0000;FF0FFFFF;0|LPD;PMU_RAM;FFDC0000;FFDDFFFF;1|LPD;PMU_GLOBAL;FFD80000;FFDBFFFF;1|FPD;PCIE_MAIN;FD0E0000;FD0EFFFF;0|FPD;PCIE_LOW;E0000000;EFFFFFFF;0|FPD;PCIE_HIGH2;8000000000;BFFFFFFFFF;0|FPD;PCIE_HIGH1;600000000;7FFFFFFFF;0|FPD;PCIE_DMA;FD0F0000;FD0FFFFF;0|FPD;PCIE_ATTRIB;FD480000;FD48FFFF;0|LPD;OCM_XMPU_CFG;FFA70000;FFA7FFFF;1|LPD;OCM_SLCR;FF960000;FF96FFFF;1|OCM;OCM;FFFC0000;FFFFFFFF;1|LPD;NAND;FF100000;FF10FFFF;0|LPD;MBISTJTAG;FFCF0000;FFCFFFFF;1|LPD;LPD_XPPU_SINK;FF9C0000;FF9CFFFF;1|LPD;LPD_XPPU;FF980000;FF98FFFF;1|LPD;LPD_SLCR_SECURE;FF4B0000;FF4DFFFF;1|LPD;LPD_SLCR;FF410000;FF4AFFFF;1|LPD;LPD_GPV;FE100000;FE1FFFFF;1|LPD;LPD_DMA_7;FFAF0000;FFAFFFFF;1|LPD;LPD_DMA_6;FFAE0000;FFAEFFFF;1|LPD;LPD_DMA_5;FFAD0000;FFADFFFF;1|LPD;LPD_DMA_4;FFAC0000;FFACFFFF;1|LPD;LPD_DMA_3;FFAB0000;FFABFFFF;1|LPD;LPD_DMA_2;FFAA0000;FFAAFFFF;1|LPD;LPD_DMA_1;FFA90000;FFA9FFFF;1|LPD;LPD_DMA_0;FFA80000;FFA8FFFF;1|LPD;IPI_CTRL;FF380000;FF3FFFFF;1|LPD;IOU_SLCR;FF180000;FF23FFFF;1|LPD;IOU_SECURE_SLCR;FF240000;FF24FFFF;1|LPD;IOU_SCNTRS;FF260000;FF26FFFF;1|LPD;IOU_SCNTR;FF250000;FF25FFFF;1|LPD;IOU_GPV;FE000000;FE0FFFFF;1|LPD;I2C1;FF030000;FF03FFFF;1|LPD;I2C0;FF020000;FF02FFFF;1|FPD;GPU;FD4B0000;FD4BFFFF;0|LPD;GPIO;FF0A0000;FF0AFFFF;1|LPD;GEM3;FF0E0000;FF0EFFFF;0|LPD;GEM2;FF0D0000;FF0DFFFF;0|LPD;GEM1;FF0C0000;FF0CFFFF;1|LPD;GEM0;FF0B0000;FF0BFFFF;0|FPD;FPD_XMPU_SINK;FD4F0000;FD4FFFFF;1|FPD;FPD_XMPU_CFG;FD5D0000;FD5DFFFF;1|FPD;FPD_SLCR_SECURE;FD690000;FD6CFFFF;1|FPD;FPD_SLCR;FD610000;FD68FFFF;1|FPD;FPD_DMA_CH7;FD570000;FD57FFFF;1|FPD;FPD_DMA_CH6;FD560000;FD56FFFF;1|FPD;FPD_DMA_CH5;FD550000;FD55FFFF;1|FPD;FPD_DMA_CH4;FD540000;FD54FFFF;1|FPD;FPD_DMA_CH3;FD530000;FD53FFFF;1|FPD;FPD_DMA_CH2;FD520000;FD52FFFF;1|FPD;FPD_DMA_CH1;FD510000;FD51FFFF;1|FPD;FPD_DMA_CH0;FD500000;FD50FFFF;1|LPD;EFUSE;FFCC0000;FFCCFFFF;1|FPD;Display\
@@ -910,20 +967,94 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_M_AXI_HPM0_FPD [get_bd_intf_pins ps8_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e/M_AXI_HPM0_FPD]
 
   # Create port connections
-  connect_bd_net -net ARESETN_1 [get_bd_pins proc_sys_reset_clk_dac_2/interconnect_aresetn] [get_bd_pins axi_interconnect_hp2/ARESETN]
-  connect_bd_net -net ARESETN_2 [get_bd_pins proc_sys_reset_clk_adc_2/interconnect_aresetn] [get_bd_pins axi_interconnect_hp0/ARESETN]
-  connect_bd_net -net DataInspectorObserve_irq [get_bd_pins InspectorTransmitter/irq] [get_bd_pins xlconcat/In2]
-  connect_bd_net -net DataInspectorReceive_irq [get_bd_pins InspectorConstellation/irq] [get_bd_pins xlconcat/In0]
-  connect_bd_net -net InspectorReceiver_irq [get_bd_pins InspectorReceiver/irq] [get_bd_pins xlconcat/In1]
-  connect_bd_net -net axi_intc_irq [get_bd_pins axi_intc/irq] [get_bd_pins zynq_ultra_ps_e/pl_ps_irq0]
-  connect_bd_net -net proc_sys_reset_clk_adc_2_peripheral_aresetn [get_bd_pins proc_sys_reset_clk_adc_2/peripheral_aresetn] [get_bd_pins InspectorConstellation/aresetn] [get_bd_pins InspectorReceiver/aresetn] [get_bd_pins InspectorTransmitter/M03_ARESETN] [get_bd_pins ofdm_decimator/aresetn] [get_bd_pins ofdm_receiver/AXI4_Lite_ARESETN] [get_bd_pins ofdm_receiver/IPCORE_RESETN] [get_bd_pins axi_interconnect_hp0/S00_ARESETN] [get_bd_pins axi_interconnect_hp0/M00_ARESETN] [get_bd_pins axi_interconnect_hp0/S01_ARESETN] [get_bd_pins ps8_axi_periph/M02_ARESETN] [get_bd_pins ps8_axi_periph/M03_ARESETN] [get_bd_pins ps8_axi_periph/M04_ARESETN] [get_bd_pins rfdc/m2_axis_aresetn]
-  connect_bd_net -net proc_sys_reset_clk_dac_2_peripheral_aresetn [get_bd_pins proc_sys_reset_clk_dac_2/peripheral_aresetn] [get_bd_pins InspectorTransmitter/aresetn] [get_bd_pins ofdm_interpolator/aresetn] [get_bd_pins ofdm_transmitter/AXI4_Lite_ARESETN] [get_bd_pins ofdm_transmitter/IPCORE_RESETN] [get_bd_pins axi_interconnect_hp2/S00_ARESETN] [get_bd_pins axi_interconnect_hp2/M00_ARESETN] [get_bd_pins ps8_axi_periph/M01_ARESETN] [get_bd_pins ps8_axi_periph/M05_ARESETN] [get_bd_pins rfdc/s2_axis_aresetn]
-  connect_bd_net -net rfdc_clk_adc2 [get_bd_pins rfdc/clk_adc2] [get_bd_pins InspectorConstellation/aclk] [get_bd_pins InspectorReceiver/aclk] [get_bd_pins InspectorTransmitter/M03_ACLK] [get_bd_pins ofdm_decimator/aclk] [get_bd_pins ofdm_receiver/AXI4_Lite_ACLK] [get_bd_pins ofdm_receiver/IPCORE_CLK] [get_bd_pins axi_interconnect_hp0/ACLK] [get_bd_pins axi_interconnect_hp0/S00_ACLK] [get_bd_pins axi_interconnect_hp0/M00_ACLK] [get_bd_pins axi_interconnect_hp0/S01_ACLK] [get_bd_pins proc_sys_reset_clk_adc_2/slowest_sync_clk] [get_bd_pins ps8_axi_periph/M02_ACLK] [get_bd_pins ps8_axi_periph/M03_ACLK] [get_bd_pins ps8_axi_periph/M04_ACLK] [get_bd_pins rfdc/m2_axis_aclk] [get_bd_pins zynq_ultra_ps_e/saxihp0_fpd_aclk]
-  connect_bd_net -net rfdc_clk_dac2 [get_bd_pins rfdc/clk_dac2] [get_bd_pins InspectorTransmitter/aclk] [get_bd_pins ofdm_interpolator/aclk] [get_bd_pins ofdm_transmitter/AXI4_Lite_ACLK] [get_bd_pins ofdm_transmitter/IPCORE_CLK] [get_bd_pins axi_interconnect_hp2/ACLK] [get_bd_pins axi_interconnect_hp2/S00_ACLK] [get_bd_pins axi_interconnect_hp2/M00_ACLK] [get_bd_pins proc_sys_reset_clk_dac_2/slowest_sync_clk] [get_bd_pins ps8_axi_periph/M01_ACLK] [get_bd_pins ps8_axi_periph/M05_ACLK] [get_bd_pins rfdc/s2_axis_aclk] [get_bd_pins zynq_ultra_ps_e/saxihp2_fpd_aclk]
-  connect_bd_net -net rst_ps8_99M_peripheral_aresetn [get_bd_pins rst_ps8_99M/peripheral_aresetn] [get_bd_pins axi_intc/s_axi_aresetn] [get_bd_pins ps8_axi_periph/ARESETN] [get_bd_pins ps8_axi_periph/S00_ARESETN] [get_bd_pins ps8_axi_periph/M00_ARESETN] [get_bd_pins ps8_axi_periph/M06_ARESETN] [get_bd_pins rfdc/s_axi_aresetn]
-  connect_bd_net -net xlconcat_0_dout [get_bd_pins xlconcat/dout] [get_bd_pins axi_intc/intr]
-  connect_bd_net -net zynq_ultra_ps_e_pl_clk0 [get_bd_pins zynq_ultra_ps_e/pl_clk0] [get_bd_pins axi_intc/s_axi_aclk] [get_bd_pins ps8_axi_periph/ACLK] [get_bd_pins ps8_axi_periph/S00_ACLK] [get_bd_pins ps8_axi_periph/M00_ACLK] [get_bd_pins ps8_axi_periph/M06_ACLK] [get_bd_pins rfdc/s_axi_aclk] [get_bd_pins rst_ps8_99M/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e/maxihpm0_fpd_aclk]
-  connect_bd_net -net zynq_ultra_ps_e_pl_resetn0 [get_bd_pins zynq_ultra_ps_e/pl_resetn0] [get_bd_pins proc_sys_reset_clk_adc_2/ext_reset_in] [get_bd_pins proc_sys_reset_clk_dac_2/ext_reset_in] [get_bd_pins rst_ps8_99M/ext_reset_in]
+  connect_bd_net -net ARESETN_1  [get_bd_pins proc_sys_reset_clk_dac_2/interconnect_aresetn] \
+  [get_bd_pins axi_interconnect_hp2/ARESETN]
+  connect_bd_net -net ARESETN_2  [get_bd_pins proc_sys_reset_clk_adc_2/interconnect_aresetn] \
+  [get_bd_pins axi_interconnect_hp0/ARESETN]
+  connect_bd_net -net DataInspectorObserve_irq  [get_bd_pins InspectorTransmitter/irq] \
+  [get_bd_pins xlconcat/In2]
+  connect_bd_net -net DataInspectorReceive_irq  [get_bd_pins InspectorConstellation/irq] \
+  [get_bd_pins xlconcat/In0]
+  connect_bd_net -net InspectorReceiver_irq  [get_bd_pins InspectorReceiver/irq] \
+  [get_bd_pins xlconcat/In1]
+  connect_bd_net -net axi_intc_irq  [get_bd_pins axi_intc/irq] \
+  [get_bd_pins zynq_ultra_ps_e/pl_ps_irq0]
+  connect_bd_net -net proc_sys_reset_clk_adc_2_peripheral_aresetn  [get_bd_pins proc_sys_reset_clk_adc_2/peripheral_aresetn] \
+  [get_bd_pins InspectorConstellation/aresetn] \
+  [get_bd_pins InspectorReceiver/aresetn] \
+  [get_bd_pins InspectorTransmitter/M03_ARESETN] \
+  [get_bd_pins ofdm_decimator/aresetn] \
+  [get_bd_pins ofdm_receiver/AXI4_Lite_ARESETN] \
+  [get_bd_pins ofdm_receiver/IPCORE_RESETN] \
+  [get_bd_pins axi_interconnect_hp0/S00_ARESETN] \
+  [get_bd_pins axi_interconnect_hp0/M00_ARESETN] \
+  [get_bd_pins axi_interconnect_hp0/S01_ARESETN] \
+  [get_bd_pins ps8_axi_periph/M02_ARESETN] \
+  [get_bd_pins ps8_axi_periph/M03_ARESETN] \
+  [get_bd_pins ps8_axi_periph/M04_ARESETN] \
+  [get_bd_pins rfdc/m2_axis_aresetn]
+  connect_bd_net -net proc_sys_reset_clk_dac_2_peripheral_aresetn  [get_bd_pins proc_sys_reset_clk_dac_2/peripheral_aresetn] \
+  [get_bd_pins InspectorTransmitter/aresetn] \
+  [get_bd_pins ofdm_interpolator/aresetn] \
+  [get_bd_pins ofdm_transmitter/AXI4_Lite_ARESETN] \
+  [get_bd_pins ofdm_transmitter/IPCORE_RESETN] \
+  [get_bd_pins axi_interconnect_hp2/S00_ARESETN] \
+  [get_bd_pins axi_interconnect_hp2/M00_ARESETN] \
+  [get_bd_pins ps8_axi_periph/M01_ARESETN] \
+  [get_bd_pins ps8_axi_periph/M05_ARESETN] \
+  [get_bd_pins rfdc/s2_axis_aresetn]
+  connect_bd_net -net rfdc_clk_adc2  [get_bd_pins rfdc/clk_adc2] \
+  [get_bd_pins InspectorConstellation/aclk] \
+  [get_bd_pins InspectorReceiver/aclk] \
+  [get_bd_pins InspectorTransmitter/M03_ACLK] \
+  [get_bd_pins ofdm_decimator/aclk] \
+  [get_bd_pins ofdm_receiver/AXI4_Lite_ACLK] \
+  [get_bd_pins ofdm_receiver/IPCORE_CLK] \
+  [get_bd_pins axi_interconnect_hp0/ACLK] \
+  [get_bd_pins axi_interconnect_hp0/S00_ACLK] \
+  [get_bd_pins axi_interconnect_hp0/M00_ACLK] \
+  [get_bd_pins axi_interconnect_hp0/S01_ACLK] \
+  [get_bd_pins proc_sys_reset_clk_adc_2/slowest_sync_clk] \
+  [get_bd_pins ps8_axi_periph/M02_ACLK] \
+  [get_bd_pins ps8_axi_periph/M03_ACLK] \
+  [get_bd_pins ps8_axi_periph/M04_ACLK] \
+  [get_bd_pins rfdc/m2_axis_aclk] \
+  [get_bd_pins zynq_ultra_ps_e/saxihp0_fpd_aclk]
+  connect_bd_net -net rfdc_clk_dac2  [get_bd_pins rfdc/clk_dac2] \
+  [get_bd_pins InspectorTransmitter/aclk] \
+  [get_bd_pins ofdm_interpolator/aclk] \
+  [get_bd_pins ofdm_transmitter/AXI4_Lite_ACLK] \
+  [get_bd_pins ofdm_transmitter/IPCORE_CLK] \
+  [get_bd_pins axi_interconnect_hp2/ACLK] \
+  [get_bd_pins axi_interconnect_hp2/S00_ACLK] \
+  [get_bd_pins axi_interconnect_hp2/M00_ACLK] \
+  [get_bd_pins proc_sys_reset_clk_dac_2/slowest_sync_clk] \
+  [get_bd_pins ps8_axi_periph/M01_ACLK] \
+  [get_bd_pins ps8_axi_periph/M05_ACLK] \
+  [get_bd_pins rfdc/s2_axis_aclk] \
+  [get_bd_pins zynq_ultra_ps_e/saxihp2_fpd_aclk]
+  connect_bd_net -net rst_ps8_99M_peripheral_aresetn  [get_bd_pins rst_ps8_99M/peripheral_aresetn] \
+  [get_bd_pins axi_intc/s_axi_aresetn] \
+  [get_bd_pins ps8_axi_periph/ARESETN] \
+  [get_bd_pins ps8_axi_periph/S00_ARESETN] \
+  [get_bd_pins ps8_axi_periph/M00_ARESETN] \
+  [get_bd_pins ps8_axi_periph/M06_ARESETN] \
+  [get_bd_pins rfdc/s_axi_aresetn]
+  connect_bd_net -net xlconcat_0_dout  [get_bd_pins xlconcat/dout] \
+  [get_bd_pins axi_intc/intr]
+  connect_bd_net -net zynq_ultra_ps_e_pl_clk0  [get_bd_pins zynq_ultra_ps_e/pl_clk0] \
+  [get_bd_pins axi_intc/s_axi_aclk] \
+  [get_bd_pins ps8_axi_periph/ACLK] \
+  [get_bd_pins ps8_axi_periph/S00_ACLK] \
+  [get_bd_pins ps8_axi_periph/M00_ACLK] \
+  [get_bd_pins ps8_axi_periph/M06_ACLK] \
+  [get_bd_pins rfdc/s_axi_aclk] \
+  [get_bd_pins rst_ps8_99M/slowest_sync_clk] \
+  [get_bd_pins zynq_ultra_ps_e/maxihpm0_fpd_aclk]
+  connect_bd_net -net zynq_ultra_ps_e_pl_resetn0  [get_bd_pins zynq_ultra_ps_e/pl_resetn0] \
+  [get_bd_pins proc_sys_reset_clk_adc_2/ext_reset_in] \
+  [get_bd_pins proc_sys_reset_clk_dac_2/ext_reset_in] \
+  [get_bd_pins rst_ps8_99M/ext_reset_in]
 
   # Create address segments
   assign_bd_address -offset 0xA0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e/Data] [get_bd_addr_segs InspectorTransmitter/axi_dma/S_AXI_LITE/Reg] -force
@@ -954,6 +1085,7 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  validate_bd_design
   save_bd_design
 }
 # End of create_root_design()
@@ -965,6 +1097,4 @@ Port;FD4A0000;FD4AFFFF;1|FPD;DPDMA;FD4C0000;FD4CFFFF;1|FPD;DDR_XMPU5_CFG;FD05000
 
 create_root_design ""
 
-
-common::send_gid_msg -ssname BD::TCL -id 2053 -severity "WARNING" "This Tcl script was generated from a block design that has not been validated. It is possible that design <$design_name> may result in errors during validation."
 
